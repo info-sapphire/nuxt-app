@@ -58,7 +58,7 @@ export default {
       }
     }
   },
-  created () {
+  beforeCreate () {
     this.$nuxt.$emit('chnage-background-color', '#202020')
   },
   methods: {
