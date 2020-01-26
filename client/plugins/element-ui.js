@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import {
+  Loading,
   Container,
   Aside,
   Main,
@@ -22,3 +23,5 @@ Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
 Vue.use(Button)
+
+Vue.prototype.$loading = Loading.service
