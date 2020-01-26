@@ -22,7 +22,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "commit-msg": "node utils/verify-commit.js"
     }
   },
   "dependencies": {
@@ -38,6 +39,7 @@
     "@nuxtjs/eslint-module": "^1.1.0",
     "@vue/eslint-config-standard": "^5.1.0",
     "babel-eslint": "^10.0.3",
+    "chalk": "^3.0.0",
     "eslint": "^6.8.0",
     "eslint-plugin-nuxt": "^0.5.0",
     "husky": "^4.2.1",
