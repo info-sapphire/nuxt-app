@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
   mode: 'universal',
   srcDir: 'client/',
@@ -19,7 +21,9 @@ module.exports = {
   plugins: ['@/plugins/element-ui'],
   buildModules: ['@nuxtjs/eslint-module'],
   modules: ['@nuxtjs/axios', ['@nuxtjs/dotenv', { path: __dirname }]],
-  axios: {},
+  axios: {
+    baseURL: process.env.NUXT_ENV_API_URL
+  },
   build: {
     transpile: [/^element-ui/],
     extend (config, ctx) {}
