@@ -17,7 +17,7 @@ module.exports = {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   loading: { color: '#fff' },
-  css: ['element-ui/lib/theme-chalk/index.css'],
+  css: [{ src: '~assets/scss/main.scss', lang: 'scss' }],
   plugins: ['@/plugins/element-ui'],
   buildModules: ['@nuxtjs/eslint-module'],
   modules: ['@nuxtjs/axios', ['@nuxtjs/dotenv', { path: __dirname }]],
