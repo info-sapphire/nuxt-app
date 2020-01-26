@@ -12,16 +12,14 @@ export default {
   name: 'Empty',
   data () {
     return {
-      color: '#fff'
+      color: null
     }
   },
   created () {
+    this.color = '#fff'
     this.$nuxt.$on('chnage-background-color', color => {
       this.color = color
     })
-  },
-  mounted () {
-    this.color = '#fff'
   }
 }
 </script>
