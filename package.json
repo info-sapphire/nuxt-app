@@ -20,6 +20,11 @@
       "git add"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "dependencies": {
     "nuxt": "^2.0.0",
     "cross-env": "^5.2.0",
@@ -35,6 +40,7 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^6.8.0",
     "eslint-plugin-nuxt": "^0.5.0",
+    "husky": "^4.2.1",
     "lint-staged": "^10.0.2",
     "nodemon": "^1.18.9",
     "prettier": "^1.19.1"
