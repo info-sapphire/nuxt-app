@@ -1,12 +1,28 @@
 <template>
-  <div :class="$style.layout">
+  <div
+    :class="$style.layout"
+    :style="{ 'background-color': color }"
+  >
     <Nuxt />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Empty'
+  name: 'Empty',
+  data () {
+    return {
+      color: '#fff'
+    }
+  },
+  created () {
+    this.$nuxt.$on('chnage-background-color', color => {
+      this.color = color
+    })
+  },
+  mounted () {
+    this.color = '#fff'
+  }
 }
 </script>
 
@@ -16,5 +32,6 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: 100vh;
 }
 </style>
