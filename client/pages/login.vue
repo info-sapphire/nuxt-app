@@ -40,6 +40,12 @@
             </div>
           </ElInput>
         </ElFormItem>
+        <ElButton
+          type="primary"
+          :class="$style.button"
+        >
+          Войти
+        </ElButton>
       </ElForm>
     </ElCard>
   </ElContainer>
@@ -100,5 +106,9 @@ export default {
   transform: translate(-50%, -50%) rotate(145deg);
   user-select: none;
   pointer-events: none;
+}
+
+.button {
+  width: 100%;
 }
 </style>
