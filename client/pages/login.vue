@@ -4,6 +4,12 @@
       shadow="never"
       :class="$style.card"
     >
+      <h2
+        slot="header"
+        :class="$style.tagline"
+      >
+        Авторизация на сайте
+      </h2>
       <ElForm ref="login">
         <img
           src="~/assets/img/logo.svg"
@@ -91,6 +97,19 @@ export default {
 .card {
   width: 420px;
   box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+
+  :global(.el-card__header) {
+    padding: 12px 0;
+    background-color: #f3f3f3;
+    border-bottom: 1px solid #cfcfcf;
+    box-shadow: 0 1px #f5f5f5;
+  }
+}
+
+.tagline {
+  color: #555;
+  font-size: 16px;
+  text-align: center;
 }
 
 .logo {
