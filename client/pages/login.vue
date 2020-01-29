@@ -54,6 +54,7 @@
         <ElButton
           type="primary"
           :class="$style.button"
+          :loading="loading"
         >
           Войти
         </ElButton>
@@ -68,6 +69,7 @@ export default {
   layout: 'empty',
   data () {
     return {
+      loading: false,
       passwdView: false,
       passwdType: 'password',
       controls: {
