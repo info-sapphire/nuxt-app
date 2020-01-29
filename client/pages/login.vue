@@ -14,7 +14,7 @@
           <ElInput
             v-model.trim="controls.login"
             prefix-icon="el-icon-user"
-            :placeholder="'Логин, email или телефон'"
+            :placeholder="'email или телефон'"
             :class="$style.input"
           >
             <ElButton
@@ -28,7 +28,7 @@
             v-model.trim="controls.passwd"
             prefix-icon="el-icon-lock"
             :type="passwdType"
-            :placeholder="'Пароль'"
+            :placeholder="'пароль'"
           >
             <div
               slot="append"
