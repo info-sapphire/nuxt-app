@@ -5,6 +5,11 @@
       :class="$style.card"
     >
       <ElForm ref="login">
+        <img
+          src="~/assets/img/logo.svg"
+          alt="Genesis"
+          :class="$style.logo"
+        >
         <ElFormItem>
           <ElInput
             v-model.trim="controls.login"
@@ -86,6 +91,12 @@ export default {
 .card {
   width: 420px;
   box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  display: block;
+  max-width: 220px;
+  margin: 0 auto 20px;
 }
 
 .input {
