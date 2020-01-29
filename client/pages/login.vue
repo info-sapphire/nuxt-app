@@ -10,6 +10,7 @@
             v-model.trim="controls.login"
             prefix-icon="el-icon-user"
             :placeholder="'Логин, email или телефон'"
+            :class="$style.input"
           >
             <ElButton
               slot="append"
@@ -73,10 +74,18 @@ export default {
 <style lang="scss" module>
 .container {
   justify-content: center;
+  padding: 0 24px;
 }
 
 .card {
+  width: 420px;
   box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.input {
+  :global(.el-input__inner) {
+    text-overflow: ellipsis;
+  }
 }
 
 .icon-group {
