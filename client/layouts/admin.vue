@@ -5,7 +5,7 @@
       :class="$style.container"
     >
       <ElHeader :class="$style.header">
-        Header
+        <LogoIcon />
       </ElHeader>
       <ElContainer>
         <ElAside
@@ -24,11 +24,13 @@
 
 <script>
 import AppAside from '~/components/admin/AppAside'
+import LogoIcon from '~/assets/img/logo.svg'
 
 export default {
   name: 'Admin',
   components: {
-    AppAside
+    AppAside,
+    LogoIcon
   }
 }
 </script>
