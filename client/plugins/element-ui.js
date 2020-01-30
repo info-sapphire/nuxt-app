@@ -8,7 +8,9 @@ import {
   Form,
   FormItem,
   Input,
-  Button
+  Button,
+  Menu,
+  MenuItem
 } from 'element-ui'
 import lang from 'element-ui/lib/locale/lang/ru-RU'
 import locale from 'element-ui/lib/locale'
@@ -23,5 +25,7 @@ Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
 Vue.use(Button)
+Vue.use(Menu)
+Vue.use(MenuItem)
 
 Vue.prototype.$loading = Loading.service
