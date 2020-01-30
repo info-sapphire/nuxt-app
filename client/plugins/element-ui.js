@@ -2,6 +2,7 @@ import Vue from 'vue'
 import {
   Loading,
   Container,
+  Header,
   Aside,
   Main,
   Card,
@@ -18,6 +19,7 @@ import locale from 'element-ui/lib/locale'
 locale.use(lang)
 
 Vue.use(Container)
+Vue.use(Header)
 Vue.use(Aside)
 Vue.use(Main)
 Vue.use(Card)
