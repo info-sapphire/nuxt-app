@@ -1,8 +1,11 @@
 <template>
   <ElMenu
     router
-    class="aside-menu"
+    :class="$style.menu"
     :default-active="$route.path"
+    :background-color="'#272a33'"
+    :text-color="'#fff'"
+    :active-text-color="'#ee4070'"
   >
     <ElMenuItem index="/admin">
       <i class="el-icon-menu" />
@@ -33,8 +36,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.aside-menu {
-  // height: 100%;
+<style lang="scss" module>
+.menu {
+  height: 100%;
 }
 </style>
