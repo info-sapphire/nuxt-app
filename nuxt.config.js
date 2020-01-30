@@ -20,7 +20,11 @@ module.exports = {
   css: ['normalize.css', { src: '~assets/scss/main.scss', lang: 'scss' }],
   plugins: ['@/plugins/element-ui'],
   buildModules: ['@nuxtjs/eslint-module'],
-  modules: ['@nuxtjs/axios', ['@nuxtjs/dotenv', { path: __dirname }]],
+  modules: [
+    '@nuxtjs/axios',
+    'nuxt-svg-loader',
+    ['@nuxtjs/dotenv', { path: __dirname }]
+  ],
   axios: {
     baseURL: process.env.NUXT_ENV_API_URL
   },
