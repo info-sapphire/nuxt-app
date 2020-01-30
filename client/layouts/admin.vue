@@ -1,7 +1,9 @@
 <template>
   <div :class="$style.layout">
     <ElContainer :class="$style.container">
-      <ElAside width="250px" />
+      <ElAside width="250px">
+        <AppAside />
+      </ElAside>
       <ElMain>
         <Nuxt />
       </ElMain>
@@ -10,8 +12,13 @@
 </template>
 
 <script>
+import AppAside from '~/components/admin/AppAside'
+
 export default {
-  name: 'Admin'
+  name: 'Admin',
+  components: {
+    AppAside
+  }
 }
 </script>
 
