@@ -11,11 +11,11 @@
         Авторизация на сайте
       </h2>
       <ElForm ref="login">
-        <img
-          src="~/assets/img/logo.svg"
-          alt="Genesis"
+        <LogoIcon
+          width="100%"
+          height="100%"
           :class="$style.logo"
-        >
+        />
         <ElFormItem>
           <ElInput
             v-model.trim="controls.login"
@@ -64,9 +64,14 @@
 </template>
 
 <script>
+import LogoIcon from '~/assets/img/logo.svg'
+
 export default {
   name: 'Login',
   layout: 'empty',
+  components: {
+    LogoIcon
+  },
   data () {
     return {
       loading: false,
