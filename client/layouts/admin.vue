@@ -5,7 +5,10 @@
       :class="$style.container"
     >
       <ElHeader :class="$style.header">
-        <LogoIcon />
+        <LogoIcon
+          width="100px"
+          height="50px"
+        />
       </ElHeader>
       <ElContainer>
         <ElAside
@@ -44,9 +47,19 @@ export default {
   height: 100%;
 }
 .header {
+  display: flex;
+  align-items: center;
   z-index: 5;
   background-color: #1c1e24;
   box-shadow: 0px 0px 10px 0px rgba(28, 30, 36, 0.65);
+
+  :global(.logo_svg__fill-logo) {
+    fill: #ee4070;
+  }
+
+  :global(.logo_svg__stroke-logo) {
+    stroke: #ee4070;
+  }
 }
 .aside {
   :global(.el-menu) {
