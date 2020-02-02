@@ -10,7 +10,10 @@
       >
         Авторизация на сайте
       </h2>
-      <ElForm ref="login">
+      <ElForm
+        ref="login"
+        :class="$style.form"
+      >
         <LogoIcon
           width="100%"
           height="100%"
@@ -19,42 +22,37 @@
         <ElFormItem>
           <ElInput
             v-model.trim="controls.login"
-            prefix-icon="el-icon-user"
             :placeholder="'email или телефон'"
-            :class="$style.input"
           >
-            <ElButton
-              slot="append"
-              icon="el-icon-info"
+            <AwesomeIcon
+              slot="prefix"
+              :name="'user'"
             />
           </ElInput>
         </ElFormItem>
         <ElFormItem>
           <ElInput
             v-model.trim="controls.passwd"
-            prefix-icon="el-icon-lock"
             :type="passwdType"
             :placeholder="'пароль'"
           >
-            <div
-              slot="append"
-              :class="$style['icon-group']"
-            >
-              <i
-                v-show="passwdView"
-                :class="['el-icon-minus', $style['icon-minus']]"
-              />
-              <ElButton
-                icon="el-icon-view"
-                @click="showPasswd"
-              />
-            </div>
+            <AwesomeIcon
+              slot="prefix"
+              :name="'lock-alt'"
+            />
+            <AwesomeIcon
+              slot="suffix"
+              :key="passwdIcon"
+              :name="passwdIcon"
+              @click="showPasswd"
+            />
           </ElInput>
         </ElFormItem>
         <ElButton
           type="primary"
           :class="$style.button"
           :loading="loading"
+          @click="onSubmit"
         >
           Войти
         </ElButton>
@@ -83,6 +81,11 @@ export default {
       }
     }
   },
+  computed: {
+    passwdIcon () {
+      return this.passwdView ? 'eye-slash' : 'eye'
+    }
+  },
   beforeCreate () {
     this.$nuxt.$emit('chnage-background-color', '#202020')
   },
@@ -90,6 +93,9 @@ export default {
     showPasswd () {
       this.passwdView = !this.passwdView
       this.passwdType = this.passwdView ? 'text' : 'password'
+    },
+    onSubmit () {
+      this.loading = true
     }
   }
 }
@@ -119,30 +125,41 @@ export default {
   text-align: center;
 }
 
-.logo {
-  display: block;
-  max-width: 220px;
-  margin: 0 auto 20px;
-}
-
-.input {
+.form {
+  .logo {
+    display: block;
+    max-width: 220px;
+    margin: 0 auto 20px;
+  }
   :global(.el-input__inner) {
     text-overflow: ellipsis;
   }
-}
+  :global(.el-input__prefix) {
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  :global(.el-input__suffix) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
 
-.icon-group {
-  position: relative;
-}
+    :global(.el-input__suffix-inner) {
+      display: flex;
 
-.icon-minus {
-  position: absolute;
-  font-size: 20px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(145deg);
-  user-select: none;
-  pointer-events: none;
+      :global(.awesome-icon) {
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+  :global(.awesome-icon) {
+    width: 14px;
+    height: 14px;
+  }
 }
 
 .button {

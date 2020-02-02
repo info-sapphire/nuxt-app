@@ -10,10 +10,22 @@ import Vue from 'vue'
 import {
   aILanguage,
   aICogs,
-  aIChartNetwork
+  aIChartNetwork,
+  aILockAlt,
+  aIUser,
+  aIEye,
+  aIEyeSlash
 } from '@/assets/awesome-icons/light'
 
-const icons = [aILanguage, aICogs, aIChartNetwork]
+const icons = [
+  aILanguage,
+  aICogs,
+  aIChartNetwork,
+  aILockAlt,
+  aIUser,
+  aIEye,
+  aIEyeSlash
+]
 
 Vue.component('AwesomeIcon', {
   name: 'AwesomeIcon',
@@ -35,7 +47,7 @@ Vue.component('AwesomeIcon', {
     }
   },
 
-  render: (createElement, context) => {
+  render: (h, context) => {
     let {
       data,
       props: { name, width, height }
@@ -50,20 +62,23 @@ Vue.component('AwesomeIcon', {
 
     width = !width ? icon.width : width
     height = !height ? icon.height : height
+    const staticClass =
+      'awesome-icon' + (!data.staticClass ? '' : ' ' + data.staticClass)
 
-    return createElement(
+    return h(
       'svg',
       {
-        staticClass: data.staticClass,
+        staticClass,
         class: data.class,
         attrs: {
           xmlns: 'http://www.w3.org/2000/svg',
           width: `${width}px`,
           height: `${height}px`,
           viewBox: `0 0 ${icon.width} ${icon.height}`
-        }
+        },
+        on: context.data.on
       },
-      [createElement('path', { attrs: { fill: 'currentColor', d: icon.path } })]
+      [h('path', { attrs: { fill: 'currentColor', d: icon.path } })]
     )
   }
 })
