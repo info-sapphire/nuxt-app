@@ -87,7 +87,7 @@ export default {
     }
   },
   beforeCreate () {
-    this.$nuxt.$emit('chnage-background-color', '#202020')
+    this.$nuxt.$emit('change-background-color', '#202020')
   },
   methods: {
     showPasswd () {

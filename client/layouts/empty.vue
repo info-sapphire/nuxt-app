@@ -17,7 +17,7 @@ export default {
   },
   created () {
     this.color = '#fff'
-    this.$nuxt.$on('chnage-background-color', color => {
+    this.$nuxt.$on('change-background-color', color => {
       this.color = color
     })
   }
