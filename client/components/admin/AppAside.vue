@@ -23,6 +23,13 @@
       <i class="el-icon-user" />
       <span>Создать пользователя</span>
     </ElMenuItem>
+    <ElMenuItem index="/admin/user">
+      <LanguagesIcon
+        width="18px"
+        height="18px"
+      />
+      <span>Языки</span>
+    </ElMenuItem>
     <ElMenuItem index="/admin/logout">
       <i class="el-icon-setting" />
       <span>Выйти</span>
@@ -31,8 +38,13 @@
 </template>
 
 <script>
+import LanguagesIcon from '~/assets/icons/languages.svg'
+
 export default {
-  name: 'AppAside'
+  name: 'AppAside',
+  components: {
+    LanguagesIcon
+  }
 }
 </script>
 
@@ -40,4 +52,7 @@ export default {
 .menu {
   height: 100%;
 }
+
+// fill: #909399;
+// margin: 0 4px 0 1px;
 </style>

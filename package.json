@@ -34,6 +34,7 @@
     "express": "^4.16.4",
     "normalize.css": "^8.0.1",
     "nuxt": "^2.0.0",
+    "nuxt-i18n": "^6.5.0",
     "nuxt-svg-loader": "^1.2.0"
   },
   "devDependencies": {

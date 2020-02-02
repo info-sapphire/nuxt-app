@@ -23,10 +23,20 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
     'nuxt-svg-loader',
+    'nuxt-i18n',
     ['@nuxtjs/dotenv', { path: __dirname }]
   ],
   axios: {
     baseURL: process.env.NUXT_ENV_API_URL
+  },
+  i18n: {
+    // locales: ['en', 'fr', 'es'],
+    // lazy: true,
+    // langDir: 'lang/',
+    // defaultLocale: 'en',
+    // vueI18n: {
+    //   fallbackLocale: 'en'
+    // }
   },
   build: {
     transpile: [/^element-ui/],
