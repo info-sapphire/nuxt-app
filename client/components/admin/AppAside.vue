@@ -8,43 +8,32 @@
     :active-text-color="'#ee4070'"
   >
     <ElMenuItem index="/admin">
-      <i class="el-icon-menu" />
+      <AwesomeIcon
+        :class="$style.icon"
+        :name="'chart-network'"
+      />
       <span>Аналитика</span>
     </ElMenuItem>
-    <ElMenuItem index="/admin/create">
-      <i class="el-icon-edit-outline" />
-      <span>Создать пост</span>
-    </ElMenuItem>
-    <ElMenuItem index="/admin/list">
-      <i class="el-icon-tickets" />
-      <span>Посты</span>
-    </ElMenuItem>
-    <ElMenuItem index="/admin/user">
-      <i class="el-icon-user" />
-      <span>Создать пользователя</span>
-    </ElMenuItem>
-    <ElMenuItem index="/admin/user">
-      <LanguagesIcon
-        width="18px"
-        height="18px"
+    <ElMenuItem index="/admin/languages">
+      <AwesomeIcon
+        :class="$style.icon"
+        :name="'language'"
       />
       <span>Языки</span>
     </ElMenuItem>
-    <ElMenuItem index="/admin/logout">
-      <i class="el-icon-setting" />
-      <span>Выйти</span>
+    <ElMenuItem index="/admin/settings">
+      <AwesomeIcon
+        :class="$style.icon"
+        :name="'cogs'"
+      />
+      <span>Настройки</span>
     </ElMenuItem>
   </ElMenu>
 </template>
 
 <script>
-import LanguagesIcon from '~/assets/icons/languages.svg'
-
 export default {
-  name: 'AppAside',
-  components: {
-    LanguagesIcon
-  }
+  name: 'AppAside'
 }
 </script>
 
@@ -53,6 +42,16 @@ export default {
   height: 100%;
 }
 
-// fill: #909399;
-// margin: 0 4px 0 1px;
+.icon {
+  color: #909399;
+  width: 20px;
+  height: 20px;
+  margin: 0 4px 0 1px;
+}
+
+:global(.el-menu-item.is-active) {
+  .icon {
+    color: #ee4070;
+  }
+}
 </style>

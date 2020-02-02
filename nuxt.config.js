@@ -17,8 +17,8 @@ module.exports = {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   loading: { color: '#fff' },
-  css: ['normalize.css', { src: '~assets/scss/main.scss', lang: 'scss' }],
-  plugins: ['@/plugins/element-ui'],
+  css: ['normalize.css', { src: '@/assets/scss/main.scss', lang: 'scss' }],
+  plugins: ['@/plugins/element-ui', '@/plugins/awesome-icon'],
   buildModules: ['@nuxtjs/eslint-module'],
   modules: [
     '@nuxtjs/axios',
