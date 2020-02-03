@@ -11,7 +11,8 @@ import {
   Input,
   Button,
   Menu,
-  MenuItem
+  MenuItem,
+  Divider
 } from 'element-ui'
 import lang from 'element-ui/lib/locale/lang/ru-RU'
 import locale from 'element-ui/lib/locale'
@@ -29,5 +30,6 @@ Vue.use(Input)
 Vue.use(Button)
 Vue.use(Menu)
 Vue.use(MenuItem)
+Vue.use(Divider)
 
 Vue.prototype.$loading = Loading.service
