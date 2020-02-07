@@ -7,15 +7,14 @@
   fab - brands
 */
 import Vue from 'vue'
-import {
-  aILanguage,
-  aICogs,
-  aIChartNetwork,
-  aILockAlt,
-  aIUser,
-  aIEye,
-  aIEyeSlash
-} from '@/assets/awesome-icons/light'
+
+import aILanguage from '@/assets/awesome-icons/light/aILanguage'
+import aICogs from '@/assets/awesome-icons/light/aICogs'
+import aIChartNetwork from '@/assets/awesome-icons/light/aIChartNetwork'
+import aILockAlt from '@/assets/awesome-icons/light/aILockAlt'
+import aIUser from '@/assets/awesome-icons/light/aIUser'
+import aIEye from '@/assets/awesome-icons/light/aIEye'
+import aIEyeSlash from '@/assets/awesome-icons/light/aIEyeSlash'
 
 const icons = [
   aILanguage,
@@ -56,7 +55,7 @@ Vue.component('AwesomeIcon', {
     const icon = icons.find(icon => icon.iconName === name)
 
     if (!icon) {
-      console.warn('Icon not found')
+      console.warn(`Icon '${name}' not found`)
       return null
     }
 

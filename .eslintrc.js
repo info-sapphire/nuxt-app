@@ -7,7 +7,7 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint'
   },
-  ignorePatterns: ['node_modules/'],
+  ignorePatterns: ['node_modules/', 'client/assets/'],
   extends: ['@nuxtjs', 'plugin:vue/recommended', '@vue/standard'],
   rules: {
     'vue/component-name-in-template-casing': [
