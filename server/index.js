@@ -15,6 +15,12 @@ nuxt().then(nuxt => {
   // Give nuxt middleware to express
   app.use(nuxt.render)
 
+  // routes
+  const mediaRoutes = require('./routes/media.route')
+
+  // routes init
+  app.use('/api/media', mediaRoutes)
+
   // Listen the server
   app.listen(port, host, () => {
     consola.ready({
