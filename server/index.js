@@ -1,24 +1,16 @@
-const { Nuxt, Builder } = require('nuxt')
+const express = require('express')
 const consola = require('consola')
-const app = require('./app')
+const bodyParser = require('body-parser')
+const nuxt = require('./nuxt')
 
-// Import and Set Nuxt.js options
-const config = require('../nuxt.config.js')
-const isDev = process.env.NODE_ENV !== 'production'
+nuxt().then(nuxt => {
+  const { host, port } = nuxt.options.server
 
-// Init Nuxt.js
-const nuxt = new Nuxt({ ...config, dev: isDev })
+  // init app
+  const app = express()
 
-const { host, port } = nuxt.options.server
-
-/* eslint no-unreachable: 0 */
-;(async () => {
-  if (isDev) {
-    const builder = new Builder(nuxt)
-    await builder.build()
-  } else {
-    await nuxt.ready()
-  }
+  app.use(bodyParser.urlencoded({ extended: true }))
+  app.use(bodyParser.json())
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
@@ -30,4 +22,4 @@ const { host, port } = nuxt.options.server
       badge: true
     })
   })
-})()
+})
