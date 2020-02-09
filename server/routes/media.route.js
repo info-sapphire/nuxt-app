@@ -1,7 +1,8 @@
 const router = require('express').Router()
 
-const { upload } = require('../controllers/media.controller')
+const { list, upload } = require('../controllers/media.controller')
 
-router.post('/', upload)
+router.get('/list', list)
+router.post('/upload', upload)
 
 module.exports = router
