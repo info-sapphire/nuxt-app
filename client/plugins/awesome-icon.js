@@ -15,6 +15,7 @@ import aILockAlt from '@/assets/awesome-icons/light/aILockAlt'
 import aIUser from '@/assets/awesome-icons/light/aIUser'
 import aIEye from '@/assets/awesome-icons/light/aIEye'
 import aIEyeSlash from '@/assets/awesome-icons/light/aIEyeSlash'
+import aIPhotoVideo from '@/assets/awesome-icons/light/aIPhotoVideo'
 
 const icons = [
   aILanguage,
@@ -23,7 +24,8 @@ const icons = [
   aILockAlt,
   aIUser,
   aIEye,
-  aIEyeSlash
+  aIEyeSlash,
+  aIPhotoVideo
 ]
 
 Vue.component('AwesomeIcon', {

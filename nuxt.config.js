@@ -27,7 +27,7 @@ module.exports = {
     ['@nuxtjs/dotenv', { path: __dirname }]
   ],
   axios: {
-    // baseURL: process.env.NUXT_ENV_API_URL
+    baseURL: process.env.NUXT_ENV_API_URL
   },
   i18n: {
     // locales: ['en', 'fr', 'es'],

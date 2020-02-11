@@ -14,6 +14,13 @@
       />
       <span>Аналитика</span>
     </ElMenuItem>
+    <ElMenuItem index="/admin/uploads">
+      <AwesomeIcon
+        :class="$style.icon"
+        :name="'photo-video'"
+      />
+      <span>Медиафайлы</span>
+    </ElMenuItem>
     <ElMenuItem index="/admin/languages">
       <AwesomeIcon
         :class="$style.icon"
