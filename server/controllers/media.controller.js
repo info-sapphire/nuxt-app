@@ -1,6 +1,6 @@
 const fs = require('fs')
-// const multer = require('multer')
-// const upload = require('../middlewares/upload').single('avatar')
+const multer = require('multer')
+const upload = require('../middlewares/upload').single('avatar')
 const CodedError = require('../libraries/CodedError')
 const uploadDir = require('../utils/uploadDir')
 
@@ -20,16 +20,30 @@ module.exports.list = (req, res, next) => {
   }
 }
 
-module.exports.upload = (req, res) => {
-  // upload(req, res, err => {
-  //   if (err instanceof multer.MulterError) {
-  //     // Случилась ошибка Multer при загрузке.
-  //     console.log('error Multer: ', err)
-  //   }
-  //   console.log(req.file)
-  //   // Все прекрасно загрузилось.
-  //   return res.json({
-  //     message: "it's work!"
-  //   })
-  // })
+module.exports.upload = (req, res, next) => {
+  upload(req, res, err => {
+    if (err instanceof multer.MulterError) {
+      /**
+       * Случилась ошибка Multer при загрузке.
+       */
+      return next(
+        new CodedError(err.code, {
+          message: err.message,
+          field: err.field
+        })
+      )
+    }
+
+    if (typeof err !== 'undefined') {
+      /**
+       * При загрузке произошла неизвестная ошибка.
+       */
+      return next(new CodedError('BAD_REQUEST', { message: err.message }))
+    }
+
+    /**
+     * Все прекрасно загрузилось.
+     */
+    return next(new CodedError('SUCCESS'))
+  })
 }
