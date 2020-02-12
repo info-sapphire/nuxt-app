@@ -32,4 +32,6 @@ Vue.use(Menu)
 Vue.use(MenuItem)
 Vue.use(Divider)
 
+Vue.use(Loading.directive)
+
 Vue.prototype.$loading = Loading.service

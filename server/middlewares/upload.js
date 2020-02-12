@@ -1,21 +1,24 @@
 const path = require('path')
 const multer = require('multer')
-const uuidv4 = require('../../utils/uuidv4')
+// const sharp = require('sharp')
+const uuidv4 = require('../../common/uuidv4')
+const dirname = require('../utils/dirname')
 
 const storage = multer.diskStorage({
   destination (req, _, callback) {
-    const { dir } = req.query
-    let _dir = ['..', '..', 'client', 'static', 'uploads']
+    const { toDir } = req.query
+    let uploadDir
 
-    if (typeof dir !== 'undefined') {
-      _dir = _dir.concat(dir)
+    try {
+      uploadDir = dirname(toDir)
+    } catch (e) {
+      // invalid dirname
+      callback(null, false)
     }
 
-    const dirs = path.join(__dirname, ..._dir)
-
-    callback(null, dirs)
+    callback(null, path.join(__dirname, ...uploadDir))
   },
-  filename (req, file, callback) {
+  filename (_, file, callback) {
     const timestamp = Math.floor(new Date().getTime() / 1000)
     const prefix = uuidv4()
       .split('-')

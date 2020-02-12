@@ -2,33 +2,31 @@ const fs = require('fs')
 const path = require('path')
 const multer = require('multer')
 const upload = require('../middlewares/upload').single('avatar')
-const { dirName, uploadDir } = require('../config')
+const dirname = require('../utils/dirname')
 
 module.exports.list = (req, res) => {
   const { toDir } = req.query
-  let dirname = uploadDir
+  let uploadDir
 
-  if (typeof toDir !== 'undefined') {
-    toDir.forEach(dir => {
-      if (!dirName.test(dir)) {
-        // error
-        return res.json({ error: 'invalid dirname' })
-      }
-    })
-    dirname = dirname.concat(toDir)
+  try {
+    uploadDir = dirname(__dirname, toDir)
+  } catch (e) {
+    // invalid dirname
+    console.log(e.message)
   }
 
   // Путь до директории загрузок
-  dirname = path.join(__dirname, ...dirname)
-  if (!fs.existsSync(dirname)) {
+  uploadDir = path.join(__dirname, ...uploadDir)
+
+  if (!fs.existsSync(uploadDir)) {
     // error
     return res.json({ error: "dirname doesn't exists" })
   }
   // Директория загрузок
-  const dir = fs.readdirSync(dirname).filter(file => file.indexOf('.') !== 0)
+  const dir = fs.readdirSync(uploadDir).filter(file => file.indexOf('.') !== 0)
 
   return res.json({
-    path: dirname,
+    path: uploadDir,
     files: dir
   })
 }
@@ -39,6 +37,8 @@ module.exports.upload = (req, res) => {
       // Случилась ошибка Multer при загрузке.
       console.log('error Multer: ', err)
     }
+
+    console.log(req.file)
 
     // Все прекрасно загрузилось.
     return res.json({
