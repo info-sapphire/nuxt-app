@@ -10,10 +10,8 @@ const codes = {}
  * @param {number|string} code - Error code
  * @returns {object} - Error
  */
-const get = code => {
-  console.log(codes)
-  return code in codes ? { ...codes[code], code } : { ...zeroCode, code }
-}
+const get = code =>
+  code in codes ? { ...codes[code], code } : { ...zeroCode, code }
 
 /**
  *
@@ -23,4 +21,4 @@ const use = (code, status, message) => {
   codes[code] = { ...zeroCode, code, status, message }
 }
 
-module.exports = { get, use }
+module.exports = { get, use, zeroCode }

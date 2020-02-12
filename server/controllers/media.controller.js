@@ -1,9 +1,10 @@
 const fs = require('fs')
 // const multer = require('multer')
 // const upload = require('../middlewares/upload').single('avatar')
+const CodedError = require('../libraries/CodedError')
 const uploadDir = require('../utils/uploadDir')
 
-module.exports.list = (req, res) => {
+module.exports.list = (req, res, next) => {
   const { toDir } = req.query
 
   try {
@@ -15,8 +16,7 @@ module.exports.list = (req, res) => {
       files: dir
     })
   } catch (e) {
-    // invalid dirname
-    res.json({ message: e.message })
+    return next(new CodedError('BAD_REQUEST', { message: e.message }))
   }
 }
 
