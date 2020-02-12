@@ -1,15 +1,16 @@
 const path = require('path')
 const multer = require('multer')
-// const sharp = require('sharp')
 const uuidv4 = require('../../common/uuidv4')
 const uploadDir = require('../utils/uploadDir')
+
+let dirname
 
 const storage = multer.diskStorage({
   destination (req, _, callback) {
     const { toDir } = req.query
 
     try {
-      const dirname = uploadDir(__dirname, toDir)
+      dirname = uploadDir(__dirname, toDir)
       callback(null, dirname)
     } catch (e) {
       callback(new Error(e.message))
@@ -24,6 +25,7 @@ const storage = multer.diskStorage({
     callback(null, `${timestamp}.${prefix}${path.extname(file.originalname)}`)
   }
 })
+
 const fileFilter = (req, file, callback) => {
   console.log('fileFilter: ', file)
   if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') {
@@ -33,10 +35,4 @@ const fileFilter = (req, file, callback) => {
   }
 }
 
-module.exports = multer({
-  storage,
-  fileFilter,
-  limits: {
-    fileSize: 1024 * 1024 * 5
-  }
-})
+module.exports = { storage, fileFilter }

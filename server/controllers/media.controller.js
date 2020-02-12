@@ -1,8 +1,18 @@
 const fs = require('fs')
 const multer = require('multer')
-const upload = require('../middlewares/upload').single('avatar')
+const { storage, fileFilter } = require('../libraries/upload')
 const CodedError = require('../libraries/CodedError')
 const uploadDir = require('../utils/uploadDir')
+const sharp = require('sharp')
+
+/**
+ * Создаем хранилище загрузок
+ */
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: { fileSize: 1024 * 1024 * 5 }
+}).single('avatar')
 
 module.exports.list = (req, res, next) => {
   const { toDir } = req.query
@@ -44,6 +54,13 @@ module.exports.upload = (req, res, next) => {
     /**
      * Все прекрасно загрузилось.
      */
-    return next(new CodedError('SUCCESS'))
+    console.log(req.file)
+    const { filename, path, destination } = req.file
+    sharp(path)
+      .resize(300, 300)
+      .toFile(destination + '/40x40_' + filename, (err, info) => {
+        console.log(err, info)
+        return next(new CodedError('SUCCESS'))
+      })
   })
 }
