@@ -2,8 +2,8 @@ const fs = require('fs')
 const multer = require('multer')
 const { storage, fileFilter } = require('../libraries/upload')
 const CodedError = require('../libraries/CodedError')
+const thumbnail = require('../libraries/thumbnail')
 const uploadDir = require('../utils/uploadDir')
-const sharp = require('sharp')
 
 /**
  * Создаем хранилище загрузок
@@ -31,7 +31,7 @@ module.exports.list = (req, res, next) => {
 }
 
 module.exports.upload = (req, res, next) => {
-  upload(req, res, err => {
+  upload(req, res, async err => {
     if (err instanceof multer.MulterError) {
       /**
        * Случилась ошибка Multer при загрузке.
@@ -54,13 +54,22 @@ module.exports.upload = (req, res, next) => {
     /**
      * Все прекрасно загрузилось.
      */
-    console.log(req.file)
-    const { filename, path, destination } = req.file
-    sharp(path)
-      .resize(300, 300)
-      .toFile(destination + '/40x40_' + filename, (err, info) => {
-        console.log(err, info)
-        return next(new CodedError('SUCCESS'))
-      })
+    try {
+      /**
+       * Пробуем создать миниатюру
+       */
+      const fileInfo = await thumbnail(req.file)
+
+      return next(
+        new CodedError('SUCCESS', {
+          data: {
+            image: fileInfo.options.input.file.split('static')[1],
+            thumb: fileInfo.options.fileOut.split('static')[1]
+          }
+        })
+      )
+    } catch (e) {
+      return next(new CodedError('BAD_REQUEST', { message: e.message }))
+    }
   })
 }

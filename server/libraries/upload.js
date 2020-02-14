@@ -2,6 +2,9 @@ const path = require('path')
 const multer = require('multer')
 const uuidv4 = require('../../common/uuidv4')
 const uploadDir = require('../utils/uploadDir')
+const {
+  mimetype: { images, other }
+} = require('../config')
 
 let dirname
 
@@ -27,8 +30,8 @@ const storage = multer.diskStorage({
 })
 
 const fileFilter = (req, file, callback) => {
-  console.log('fileFilter: ', file)
-  if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') {
+  const mimetype = [...images, ...other]
+  if (mimetype.includes(file.mimetype)) {
     callback(null, true)
   } else {
     callback(null, false)
