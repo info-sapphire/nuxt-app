@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const multer = require('multer')
 const { storage, fileFilter } = require('../libraries/upload')
 const CodedError = require('../libraries/CodedError')
@@ -19,10 +20,24 @@ module.exports.list = (req, res, next) => {
 
   try {
     const dirname = uploadDir(__dirname, toDir)
-    const dir = fs.readdirSync(dirname).filter(file => file.indexOf('.') !== 0)
+    const dir = fs
+      .readdirSync(dirname)
+      .filter(file => file.indexOf('.') !== 0)
+      .reduce(
+        (uploads, file) => {
+          if (path.extname(file).length > 0) {
+            uploads.files.push(file)
+          } else {
+            uploads.directories.push(file)
+          }
+
+          return uploads
+        },
+        { directories: [], files: [] }
+      )
 
     return res.json({
-      path: dirname,
+      path: dirname.split('static')[1],
       files: dir
     })
   } catch (e) {
