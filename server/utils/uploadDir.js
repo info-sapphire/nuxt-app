@@ -3,7 +3,7 @@ const path = require('path')
 const { dirName, uploadDir } = require('../config')
 
 module.exports = (dirname, toDir = []) => {
-  if (toDir.length) {
+  if (toDir.length && Array.isArray(toDir)) {
     toDir.forEach(dir => {
       if (!dirName.test(dir)) {
         throw new Error('invalid directory name')
