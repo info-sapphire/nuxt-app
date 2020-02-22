@@ -1,8 +1,13 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const consola = require('consola')
 const bodyParser = require('body-parser')
 const nuxt = require('./nuxt')
 const { BASE_API_URL } = require('./config')
+
+require('dotenv').config()
+
+const { NUXT_ENV_MONGO_URI: MONGO_URI } = process.env
 
 /**
  * Libraries
@@ -52,11 +57,24 @@ nuxt().then(nuxt => {
   // Give nuxt middleware to express
   app.use(nuxt.render)
 
-  // Listen the server
-  app.listen(port, host, () => {
-    consola.ready({
-      message: `Server listening on http://${host}:${port}`,
-      badge: true
+  mongoose
+    .connect(MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
     })
-  })
+    .then(() => {
+      consola.ready({ message: 'Database connected.', badge: true })
+      // Listen the server
+      app.listen(port, host, () => {
+        consola.ready({
+          message: `Server listening on http://${host}:${port}`,
+          badge: true
+        })
+      })
+    })
+    .catch(error => {
+      console.error(error.message)
+      process.exit(1)
+    })
 })
