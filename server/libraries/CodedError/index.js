@@ -9,5 +9,6 @@ CoddedError.use('BAD_REQUEST', 400, 'Invalid form data')
 CoddedError.use('UNAUTHORIZED', 401, 'Your token expired or not exist')
 CoddedError.use('CONFLICT', 409, 'Conflict')
 CoddedError.use('SUCCESS', 200, 'OK')
+CoddedError.use('CREATED', 201, 'Created')
 
 module.exports = CoddedError
