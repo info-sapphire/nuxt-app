@@ -1,10 +1,22 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const { validationResult } = require('express-validator')
 const CodedError = require('../libraries/CodedError')
 const User = require('../models/User')
 
 module.exports.create = async (req, res, next) => {
   try {
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+      return next(
+        new CodedError('BAD_REQUEST', {
+          message: 'Некорректные данные при регистрации',
+          data: errors.array()
+        })
+      )
+    }
+
     const { email, passwd } = req.body
 
     const candidate = await User.findOne({ email })
@@ -33,8 +45,18 @@ module.exports.create = async (req, res, next) => {
 }
 
 module.exports.login = async (req, res, next) => {
-  console.log(process.env.NUXT_ENV_JWT_SECRET)
   try {
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+      return next(
+        new CodedError('BAD_REQUEST', {
+          message: 'Некорректные данные при входе в систему',
+          data: errors.array()
+        })
+      )
+    }
+
     const { email, passwd } = req.body
 
     const candidate = await User.findOne({ email })
@@ -63,14 +85,16 @@ module.exports.login = async (req, res, next) => {
       {
         userId: candidate.id
       },
-      'jwtSecret',
+      process.env.NUXT_ENV_JWT_SECRET,
       { expiresIn: '1h' }
     )
 
     return next(
       new CodedError('SUCCESS', {
-        guid: candidate.id,
-        token
+        data: {
+          guid: candidate.id,
+          token
+        }
       })
     )
   } catch (error) {
