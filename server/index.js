@@ -5,8 +5,6 @@ const bodyParser = require('body-parser')
 const nuxt = require('./nuxt')
 const { BASE_API_URL } = require('./config')
 
-require('dotenv').config()
-
 const { NUXT_ENV_MONGO_URI: MONGO_URI } = process.env
 
 /**
