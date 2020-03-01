@@ -22,6 +22,7 @@ const error = require('./middlewares/error')
  */
 const authRoute = require('./routes/auth.route')
 const mediaRoutes = require('./routes/media.route')
+const dynamicRoutes = require('./routes/dynamic.route')
 
 // init app
 const app = express()
@@ -30,15 +31,23 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 /**
- * Init Routes
+ * Init Auth Routes
  */
 app.use(BASE_API_URL + 'auth', authRoute)
 
+/**
+ * Init Base Routes
+ */
 app.use(BASE_API_URL + 'media', mediaRoutes)
 app.use(BASE_API_URL + 'test', (req, res) => {
   console.log(req.body)
   return res.json({ message: 'ok new' })
 })
+
+/**
+ * Init Dynamic Routes
+ */
+app.use(BASE_API_URL + ':controller', dynamicRoutes)
 
 /**
  * Default error for API controllers
