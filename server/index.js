@@ -20,6 +20,7 @@ const error = require('./middlewares/error')
 /**
  * Routes
  */
+const authRoute = require('./routes/auth.route')
 const mediaRoutes = require('./routes/media.route')
 
 // init app
@@ -31,6 +32,8 @@ app.use(bodyParser.json())
 /**
  * Init Routes
  */
+app.use(BASE_API_URL + 'auth', authRoute)
+
 app.use(BASE_API_URL + 'media', mediaRoutes)
 app.use(BASE_API_URL + 'test', (req, res) => {
   console.log(req.body)
