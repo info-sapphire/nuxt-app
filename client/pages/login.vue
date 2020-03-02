@@ -66,34 +66,39 @@ import LogoIcon from '~/assets/img/logo.svg'
 
 export default {
   name: 'Login',
-  layout: 'empty',
+
+  layout: 'emptyLogin',
+
   components: {
     LogoIcon
   },
-  data () {
-    return {
-      loading: false,
-      passwdView: false,
-      passwdType: 'password',
-      controls: {
-        login: '',
-        passwd: ''
-      }
+
+  data: () => ({
+    loading: false,
+    passwdView: false,
+    passwdType: 'password',
+    controls: {
+      login: '',
+      passwd: ''
     }
-  },
+  }),
+
   computed: {
     passwdIcon () {
       return this.passwdView ? 'eye-slash' : 'eye'
     }
   },
-  beforeCreate () {
-    this.$nuxt.$emit('change-background-color', '#202020')
-  },
+
+  // beforeCreate () {
+  //   this.$nuxt.$emit('change-background-color', '#202020')
+  // },
+
   methods: {
     showPasswd () {
       this.passwdView = !this.passwdView
       this.passwdType = this.passwdView ? 'text' : 'password'
     },
+
     onSubmit () {
       this.loading = true
     }

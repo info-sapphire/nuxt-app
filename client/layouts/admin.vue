@@ -31,6 +31,9 @@ import LogoIcon from '~/assets/img/logo.svg'
 
 export default {
   name: 'Admin',
+
+  middleware: ['auth'],
+
   components: {
     AppAside,
     LogoIcon
