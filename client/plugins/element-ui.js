@@ -12,7 +12,8 @@ import {
   Button,
   Menu,
   MenuItem,
-  Divider
+  Divider,
+  ColorPicker
 } from 'element-ui'
 import lang from 'element-ui/lib/locale/lang/ru-RU'
 import locale from 'element-ui/lib/locale'
@@ -31,6 +32,7 @@ Vue.use(Button)
 Vue.use(Menu)
 Vue.use(MenuItem)
 Vue.use(Divider)
+Vue.use(ColorPicker)
 
 Vue.use(Loading.directive)
 
