@@ -48,20 +48,21 @@
             />
           </ElInput>
         </ElFormItem>
-        <ElButton
+        <AppButton
           type="primary"
           :class="$style.button"
           :loading="loading"
           @click="onSubmit"
         >
           Войти
-        </ElButton>
+        </AppButton>
       </ElForm>
     </ElCard>
   </ElContainer>
 </template>
 
 <script>
+import AppButton from '~/components/admin/elements/button/AppButton'
 import LogoIcon from '~/assets/img/logo.svg'
 
 export default {
@@ -70,6 +71,7 @@ export default {
   layout: 'emptyLogin',
 
   components: {
+    AppButton,
     LogoIcon
   },
 

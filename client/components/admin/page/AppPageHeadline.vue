@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import AppLink from '~/components/admin/elements/AppLink'
+import AppLink from '~/components/admin/elements/link/AppLink'
 
 export default {
   name: 'AppPageHeadline',

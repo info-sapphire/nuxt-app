@@ -1,0 +1,26 @@
+<template>
+  <ElButton
+    v-bind="$attrs"
+    :class="$style.button"
+    @click="$emit('click')"
+  >
+    <slot />
+    <AppLoading v-if="$attrs.loading" />
+  </ElButton>
+</template>
+
+<script>
+import AppLoading from '~/components/admin/elements/loading/AppLoading'
+
+export default {
+  components: {
+    AppLoading
+  },
+
+  computed: {
+    // color () {
+    //   return this.$attrs.type === 'default' ? '#ee4070' : '#fff'
+    // }
+  }
+}
+</script>
