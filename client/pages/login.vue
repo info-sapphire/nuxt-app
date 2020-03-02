@@ -107,9 +107,14 @@ export default {
 </script>
 
 <style lang="scss" module>
+@import 'assets/scss/_vars';
+
 .container {
   justify-content: center;
-  padding: 0 24px;
+
+  @media (max-width: $--xs) {
+    padding: 0 20px;
+  }
 }
 
 .card {

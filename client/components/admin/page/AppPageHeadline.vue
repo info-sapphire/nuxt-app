@@ -57,6 +57,8 @@ export default {
 </script>
 
 <style lang="scss" module>
+@import 'assets/scss/_vars';
+
 .wrapper {
   :global(.el-divider__text) {
     font-size: 18px;
@@ -73,7 +75,7 @@ export default {
 }
 
 .breadcrumb__link {
-  color: #ee4070;
+  color: $color-primary;
 }
 
 .breadcrumb__separator {
