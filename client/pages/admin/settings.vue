@@ -131,7 +131,7 @@ export default {
 
       if (index !== -1) {
         this.actions[index].loading = true
-        this.schema().finally(() => {
+        this.schema().then(() => {
           this.dialog.schema = {
             name: {
               ...this.component,

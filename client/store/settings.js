@@ -6,7 +6,7 @@ export const state = () => ({
 
 export const mutations = {
   SET_SETTINGS: (state, payload) => (state.settings = payload),
-  SET_SCHEMA: (state, payload) => (state.settings = payload)
+  SET_SCHEMA: (state, payload) => (state.schema = payload)
 }
 
 export const actions = {
