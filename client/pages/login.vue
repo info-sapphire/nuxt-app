@@ -11,18 +11,20 @@
         Авторизация на сайте
       </h2>
       <ElForm
-        ref="login"
+        ref="authForm"
         :class="$style.form"
+        :model="controls"
+        :rules="rules"
       >
         <LogoIcon
           width="100%"
           height="100%"
           :class="$style.logo"
         />
-        <ElFormItem>
+        <ElFormItem prop="email">
           <ElInput
-            v-model.trim="controls.login"
-            :placeholder="'email или телефон'"
+            v-model.trim="controls.email"
+            :placeholder="'email'"
           >
             <AwesomeIcon
               slot="prefix"
@@ -30,7 +32,7 @@
             />
           </ElInput>
         </ElFormItem>
-        <ElFormItem>
+        <ElFormItem prop="passwd">
           <ElInput
             v-model.trim="controls.passwd"
             :type="passwdType"
@@ -62,6 +64,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 import AppButton from '~/components/admin/elements/button/AppButton'
 import LogoIcon from '~/assets/img/logo.svg'
 
@@ -80,8 +84,21 @@ export default {
     passwdView: false,
     passwdType: 'password',
     controls: {
-      login: '',
+      email: '',
       passwd: ''
+    },
+    rules: {
+      email: [
+        { required: true, message: 'Пожалуйста введите email', trigger: 'blur' }
+      ],
+      passwd: [
+        {
+          required: true,
+          message: 'Пожалуйста введите пароль',
+          trigger: 'blur'
+        },
+        { min: 3, message: 'Длина должна быть больше 3х', trigger: 'blur' }
+      ]
     }
   }),
 
@@ -96,13 +113,47 @@ export default {
   // },
 
   methods: {
+    ...mapActions('auth', ['login']),
+
     showPasswd () {
       this.passwdView = !this.passwdView
       this.passwdType = this.passwdView ? 'text' : 'password'
     },
 
+    showError (prop, message) {
+      const field = this.$refs.authForm.fields.find(
+        field => field.prop === prop
+      )
+      if (field) {
+        field.validateMessage = message
+        field.validateState = 'error'
+      }
+    },
+
     onSubmit () {
-      this.loading = true
+      this.$refs.authForm.validate(async valid => {
+        if (valid) {
+          try {
+            this.loading = true
+
+            await this.login(this.controls)
+          } catch (error) {
+            this.error = error.response.data.message
+
+            if (error.response.data.status === 400) {
+              const { data } = error.response.data
+
+              if (data.length > 0) {
+                data.forEach(item => {
+                  this.showError(item.param, item.msg)
+                })
+              }
+            }
+          } finally {
+            this.loading = false
+          }
+        }
+      })
     }
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable space-before-function-paren */
 require('dotenv').config()
 
 module.exports = {
@@ -18,7 +19,12 @@ module.exports = {
   },
   loading: { color: '#ee4070' },
   css: ['normalize.css', { src: '@/assets/scss/main.scss', lang: 'scss' }],
-  plugins: ['@/plugins/element-ui', '@/plugins/awesome-icon'],
+  plugins: [
+    '@/plugins/element-ui',
+    '@/plugins/awesome-icon',
+    '@/plugins/axios',
+    '@/plugins/repository'
+  ],
   buildModules: ['@nuxtjs/eslint-module'],
   modules: [
     '@nuxtjs/axios',
@@ -40,6 +46,6 @@ module.exports = {
   },
   build: {
     transpile: [/^element-ui/],
-    extend (config, ctx) {}
+    extend(config, ctx) {}
   }
 }

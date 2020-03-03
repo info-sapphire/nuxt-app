@@ -1,8 +1,7 @@
 <template>
   <ElButton
     v-bind="$attrs"
-    :class="$style.button"
-    @click="$emit('click')"
+    @click.prevent="$emit('click')"
   >
     <slot />
     <AppLoading v-if="$attrs.loading" />

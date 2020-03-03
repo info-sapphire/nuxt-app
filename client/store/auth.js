@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 /* eslint-disable space-before-function-paren */
 import Cookie from 'cookie'
 import Cookies from 'js-cookie'
@@ -18,29 +19,29 @@ export const mutations = {
 }
 
 export const actions = {
-  async login({ commit, dispatch }, formData) {
+  async login({ dispatch }, formData) {
     try {
-      const { token } = await this.$axios.$post(
-        '/api/auth/admin/login',
-        formData
-      )
+      const { login } = this.$repository.auth
+      const {
+        data: { token }
+      } = await login(formData)
+
       dispatch('setToken', token)
-    } catch (e) {
-      commit('setError', e, { root: true })
-      throw e
+    } catch (err) {
+      throw err
     }
   },
 
   logout({ commit }) {
     commit('clearToken')
-    this.$axios.setToken(false)
-    Cookies.remove('jwt-token')
+    this.$axios.setHeader('Access-Token', false)
+    Cookies.remove('access-token')
   },
 
   setToken({ commit }, token) {
-    this.$axios.setToken(token, 'Bearer')
+    this.$axios.setHeader('Access-Token', token)
     commit('setToken', token)
-    Cookies.set('jwt-token', token)
+    Cookies.set('access-token', token)
   },
 
   autoLogin({ dispatch }) {
@@ -49,7 +50,7 @@ export const actions = {
       : this.app.context.req.headers.cookie
 
     const cookies = Cookie.parse(cookieStr || '') || {}
-    const token = cookies['jwt-token']
+    const token = cookies['access-token']
 
     if (isJWTValid(token)) {
       dispatch('setToken', token)
