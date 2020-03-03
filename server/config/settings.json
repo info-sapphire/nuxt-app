@@ -1,12 +1,11 @@
 {
   "input": {
     "component": "FormInput",
-    "value": "haha",
+    "value": "le vac1",
     "label": "Название сайта:",
     "props": {},
     "on": {}
   },
-
   "color": {
     "component": "FormColorPicker",
     "value": "#ddd",

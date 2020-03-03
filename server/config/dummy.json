@@ -1,0 +1,18 @@
+{
+    "input": {
+      "component": "FormInput",
+      "value": "haha",
+      "label": "Название сайта:",
+      "props": {},
+      "on": {}
+    },
+  
+    "color": {
+      "component": "FormColorPicker",
+      "value": "#ddd",
+      "label": "Цвет фона:",
+      "props": {},
+      "on": {}
+    }
+  }
+  

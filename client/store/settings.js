@@ -8,18 +8,29 @@ export const mutations = {
 }
 
 export const actions = {
-  async list({ state, commit }) {
+  async schema({ state, commit }) {
     if (state.settings !== null) {
       return state.settings
     }
 
     try {
-      const { list } = this.$repository.settings
-      const { data } = await list()
+      const { schema } = this.$repository.settings
+      const { data } = await schema()
 
       commit('SET_SETTINGS', data)
 
       return data
+    } catch (err) {
+      console.error(err)
+    }
+  },
+
+  async update({ commit }, payload) {
+    try {
+      const { update } = this.$repository.settings
+      const { data } = await update(payload)
+
+      commit('SET_SETTINGS', data)
     } catch (err) {
       console.error(err)
     }

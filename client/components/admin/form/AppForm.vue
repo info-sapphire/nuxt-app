@@ -22,6 +22,7 @@
       <ElButton
         type="primary"
         :class="$style.button"
+        :loading="loading"
         @click="onSubmit"
       >
         SUBMIT
@@ -56,6 +57,11 @@ export default {
     rules: {
       type: Object,
       default: () => {}
+    },
+
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
 

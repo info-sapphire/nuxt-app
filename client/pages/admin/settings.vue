@@ -8,12 +8,15 @@
       :schema="formSchema"
       :rules="formRule"
       :value="formData"
+      :loading="loading"
       @submit="onSubmit"
     />
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 import AppPageHeadline from '~/components/admin/page/AppPageHeadline'
 import AppForm from '~/components/admin/form/AppForm'
 
@@ -26,7 +29,7 @@ export default {
   },
 
   async asyncData ({ store, params, error }) {
-    const settings = await store.dispatch('settings/list')
+    const settings = await store.dispatch('settings/schema')
 
     const formSchema = {}
     const formRule = {}
@@ -48,6 +51,8 @@ export default {
 
   data () {
     return {
+      loading: false,
+
       page: {
         name: 'Настройки'
       },
@@ -74,7 +79,13 @@ export default {
   },
 
   methods: {
-    onSubmit () {}
+    ...mapActions('settings', ['update']),
+    onSubmit () {
+      this.loading = true
+      this.update(this.formData).finally(() => {
+        this.loading = false
+      })
+    }
   }
 }
 </script>

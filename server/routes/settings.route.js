@@ -1,7 +1,8 @@
 const router = require('express').Router()
 const verifyAccessToken = require('../middlewares/verifyAccessToken')
-const { list } = require('../controllers/settings.controller')
+const { schema, update } = require('../controllers/settings.controller')
 
-router.get('/list', verifyAccessToken, list)
+router.get('/schema', verifyAccessToken, schema)
+router.put('/update', verifyAccessToken, update)
 
 module.exports = router
