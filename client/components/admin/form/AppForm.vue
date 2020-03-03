@@ -19,14 +19,15 @@
         v-bind="item.props"
         v-on="item.on"
       />
-      <ElButton
-        type="primary"
-        :class="$style.button"
-        :loading="loading"
-        @click="onSubmit"
+      <AppButton
+        v-for="action in actions"
+        :key="action.emit"
+        :type="action.type"
+        :loading="action.loading"
+        @click="onEmit(action)"
       >
-        SUBMIT
-      </ElButton>
+        {{ action.name }}
+      </AppButton>
     </ElForm>
   </ElCard>
 </template>
@@ -34,13 +35,15 @@
 <script>
 import FormInput from '~/components/admin/form/FormInput'
 import FormColorPicker from '~/components/admin/form/FormColorPicker'
+import AppButton from '~/components/admin/elements/button/AppButton'
 
 export default {
   name: 'AppForm',
 
   components: {
     FormInput,
-    FormColorPicker
+    FormColorPicker,
+    AppButton
   },
 
   props: {
@@ -59,19 +62,23 @@ export default {
       default: () => {}
     },
 
-    loading: {
-      type: Boolean,
-      default: false
+    actions: {
+      type: Array,
+      default: () => {}
     }
   },
 
   methods: {
-    onSubmit () {
-      this.$refs.form.validate(valid => {
-        if (valid) {
-          this.$emit('submit', this.value)
-        }
-      })
+    onEmit (action) {
+      if (action.validate) {
+        this.$refs.form.validate(valid => {
+          if (valid) {
+            this.$emit(action.emit, action.emit)
+          }
+        })
+      } else {
+        this.$emit(action.emit, action.emit)
+      }
     }
   }
 }

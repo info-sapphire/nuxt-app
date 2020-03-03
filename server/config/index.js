@@ -9,5 +9,12 @@ module.exports = {
     other: []
   },
   dirName: /[a-z0-9_]+$/,
-  uploadDir: ['..', '..', 'client', 'static', 'uploads']
+  uploadDir: ['..', '..', 'client', 'static', 'uploads'],
+  schema: {
+    component: '',
+    value: '',
+    label: '',
+    props: {},
+    on: {}
+  }
 }

@@ -1,7 +1,15 @@
 /* eslint-disable space-before-function-paren */
 export default $axios => ({
+  options() {
+    return $axios.$get('/api/settings')
+  },
+
   schema() {
     return $axios.$get('/api/settings/schema')
+  },
+
+  list() {
+    return $axios.$get('/api/settings/list')
   },
 
   update(payload) {
