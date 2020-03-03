@@ -196,6 +196,13 @@ export default {
     }
 
     &__form {
+      :global(.el-card__body) {
+        padding-top: 10px;
+
+        :global(.el-form-item__label) {
+          line-height: 30px;
+        }
+      }
     }
   }
 }
