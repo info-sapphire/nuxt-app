@@ -25,6 +25,27 @@ export default {
     AppForm
   },
 
+  async asyncData ({ store, params, error }) {
+    const settings = await store.dispatch('settings/list')
+
+    const formSchema = {}
+    const formRule = {}
+    const formData = {}
+
+    if (Object.keys(settings).length > 0) {
+      for (const prop in settings) {
+        formSchema[prop] = settings[prop]
+        formData[prop] = settings[prop].value
+      }
+    }
+
+    return {
+      formSchema,
+      formRule,
+      formData
+    }
+  },
+
   data () {
     return {
       page: {
@@ -34,35 +55,7 @@ export default {
       breadcrumbs: [
         { name: 'Аналитика', link: '/admin' },
         { name: 'Настройки', link: '' }
-      ],
-
-      formSchema: {
-        input: {
-          component: 'FormInput',
-          label: 'Название сайта:',
-          props: {},
-          on: {
-            blur: this.blur,
-
-            focus: () => {
-              console.log('фокус')
-            }
-          }
-        },
-        color: {
-          component: 'FormColorPicker',
-          label: 'Цвет фона:',
-          props: { showAlpha: true },
-          on: {}
-        }
-      },
-
-      formRule: {},
-
-      formData: {
-        input: '',
-        color: '#000'
-      }
+      ]
     }
   },
 
@@ -76,14 +69,12 @@ export default {
     }
   },
 
-  methods: {
-    blur () {
-      console.log(this.breadcrumbs, 'покус')
-    },
+  mounted () {
+    // console.log(this.settings)
+  },
 
-    onSubmit (formData) {
-      console.log(formData.input)
-    }
+  methods: {
+    onSubmit () {}
   }
 }
 </script>
