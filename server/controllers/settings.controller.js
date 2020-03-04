@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const CodedError = require('../libraries/CodedError')
-const { schema } = require('../config')
+const { components, schema } = require('../config')
 /** settings.json */
 const dir = path.join(__dirname, '..', 'config', 'settings.json')
 const settings = fs.existsSync(dir)
@@ -27,7 +27,7 @@ module.exports.options = (req, res, next) => {
 module.exports.schema = (req, res, next) => {
   return next(
     new CodedError('SUCCESS', {
-      data: schema
+      data: { components, schema }
     })
   )
 }

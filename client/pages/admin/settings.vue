@@ -19,6 +19,7 @@
       :class="$style.dialog"
     >
       <AppForm
+        ref="dialogForm"
         :schema="dialog.schema"
         :rules="dialog.rule"
         :value="dialog.data"
@@ -80,19 +81,26 @@ export default {
 
   computed: {
     ...mapState({
-      component: state => state.settings.schema
+      component: state => state.settings.schema,
+      components: state => state.settings.components
     })
   },
 
-  // watch: {
-  //   formData: {
-  //     deep: true,
-  //     immediate: true,
-  //     handler (value) {
-  //       console.log(value)
-  //     }
-  //   }
-  // },
+  watch: {
+    // formData: {
+    //   deep: true,
+    //   immediate: true,
+    //   handler (value) {
+    //     console.log(value)
+    //   }
+    // },
+    // dialog: {
+    //   deep: true,
+    //   handler (value) {
+    //     console.log(value)
+    //   }
+    // }
+  },
 
   created () {
     this.actions.push({
@@ -114,6 +122,10 @@ export default {
     this.dialog = {
       state: false
     }
+
+    setTimeout(() => {
+      // this.dialog.data.name = 'asdasd'
+    }, 5000)
   },
 
   methods: {
@@ -132,7 +144,17 @@ export default {
       if (index !== -1) {
         this.actions[index].loading = true
         this.schema().then(() => {
+          /** schemas */
           this.dialog.schema = {
+            type: {
+              ...this.component,
+              component: 'FormSelect',
+              label: 'Компонент',
+              // eslint-disable-next-line no-new-object
+              options: this.components.map(item => {
+                return { label: item.name, value: item.component }
+              })
+            },
             name: {
               ...this.component,
               component: 'FormInput',
@@ -144,29 +166,39 @@ export default {
               label: 'Название свойства'
             }
           }
-          this.dialog.data = { name: '', label: '' }
+          /** rules */
           this.dialog.rule = {
+            type: [{ required: true }],
             name: [{ required: true, trigger: 'blur' }],
             label: [{ required: true, trigger: 'blur' }]
           }
-          this.dialog.actions = [
-            {
-              emit: 'create',
-              type: 'success',
-              loading: false,
-              validate: true,
-              name: 'Добавить'
-            }
-          ]
+          /** values */
+          this.$set(this.dialog, 'data', { type: '', name: '', label: '' })
+          /** actions */
+          this.$set(this.dialog, 'actions', [])
+          this.dialog.actions.push({
+            emit: 'create',
+            type: 'success',
+            loading: false,
+            validate: true,
+            name: 'Добавить'
+          })
 
           this.actions[index].loading = false
+
           this.dialog.state = true
+
+          if (this.$refs.dialogForm !== undefined) {
+            this.$nextTick(() => {
+              this.$refs.dialogForm.$refs.form.resetFields()
+            })
+          }
         })
       }
     },
 
     onCreate () {
-      console.log('okk')
+      this.dialog.actions[0].loading = true
     }
   }
 }
@@ -201,6 +233,10 @@ export default {
 
         :global(.el-form-item__label) {
           line-height: 30px;
+        }
+
+        :global(.el-select) {
+          width: 100%;
         }
       }
     }

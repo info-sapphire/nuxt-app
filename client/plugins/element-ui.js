@@ -14,7 +14,9 @@ import {
   MenuItem,
   Divider,
   ColorPicker,
-  Dialog
+  Dialog,
+  Select,
+  Option
 } from 'element-ui'
 import lang from 'element-ui/lib/locale/lang/ru-RU'
 import locale from 'element-ui/lib/locale'
@@ -35,6 +37,8 @@ Vue.use(MenuItem)
 Vue.use(Divider)
 Vue.use(ColorPicker)
 Vue.use(Dialog)
+Vue.use(Select)
+Vue.use(Option)
 
 Vue.use(Loading.directive)
 

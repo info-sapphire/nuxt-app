@@ -16,6 +16,7 @@
         v-model="value[index]"
         :prop="index"
         :label="item.label"
+        :options="item.options"
         v-bind="item.props"
         v-on="item.on"
       />
@@ -35,6 +36,7 @@
 <script>
 import FormInput from '~/components/admin/form/FormInput'
 import FormColorPicker from '~/components/admin/form/FormColorPicker'
+import FormSelect from '~/components/admin/form/FormSelect'
 import AppButton from '~/components/admin/elements/button/AppButton'
 
 export default {
@@ -43,6 +45,7 @@ export default {
   components: {
     FormInput,
     FormColorPicker,
+    FormSelect,
     AppButton
   },
 

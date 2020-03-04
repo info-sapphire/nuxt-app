@@ -3,6 +3,7 @@
     "component": "FormInput",
     "value": "le vac122",
     "label": "Название сайта:",
+    "options": [],
     "props": {},
     "on": {}
   },
@@ -10,6 +11,7 @@
     "component": "FormColorPicker",
     "value": "#ddd",
     "label": "Цвет фона:",
+    "options": [],
     "props": {},
     "on": {}
   }

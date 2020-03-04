@@ -1,12 +1,14 @@
 /* eslint-disable space-before-function-paren */
 export const state = () => ({
   settings: null,
-  schema: null
+  schema: null,
+  components: null
 })
 
 export const mutations = {
   SET_SETTINGS: (state, payload) => (state.settings = payload),
-  SET_SCHEMA: (state, payload) => (state.schema = payload)
+  SET_SCHEMA: (state, payload) => (state.schema = payload),
+  SET_COMPONENTS: (state, payload) => (state.components = payload)
 }
 
 export const actions = {
@@ -34,9 +36,12 @@ export const actions = {
 
     try {
       const { schema } = this.$repository.settings
-      const { data } = await schema()
+      const {
+        data: { components, schema: component }
+      } = await schema()
 
-      commit('SET_SCHEMA', data)
+      commit('SET_SCHEMA', component)
+      commit('SET_COMPONENTS', components)
     } catch (err) {
       console.error(err)
     }

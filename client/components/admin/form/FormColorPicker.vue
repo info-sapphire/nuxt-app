@@ -39,6 +39,11 @@ export default {
     value: {
       type: String,
       required: true
+    },
+
+    options: {
+      type: Array,
+      default: () => {}
     }
   },
 

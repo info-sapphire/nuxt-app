@@ -3,18 +3,25 @@
     :prop="prop"
     :label="label"
   >
-    <ElInput
+    <ElSelect
       :value="value"
       v-bind="$attrs"
       v-on="$listeners"
       @input="updateValue"
-    />
+    >
+      <ElOption
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+      />
+    </ElSelect>
   </ElFormItem>
 </template>
 
 <script>
 export default {
-  name: 'FormInput',
+  name: 'FormSelect',
 
   props: {
     prop: {
