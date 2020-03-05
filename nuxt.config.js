@@ -23,7 +23,10 @@ module.exports = {
     '@/plugins/element-ui',
     '@/plugins/awesome-icon',
     '@/plugins/axios',
-    '@/plugins/repository'
+    '@/plugins/repository',
+    '@/plugins/vue-slicksort'
+    // { src: '@/plugins/draggable-tree', mode: 'client' },
+    // { src: '@/plugins/vue-slicksort', mode: 'client' }
   ],
   buildModules: ['@nuxtjs/eslint-module'],
   modules: [

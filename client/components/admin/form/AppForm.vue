@@ -29,6 +29,12 @@
       >
         {{ action.name }}
       </AppButton>
+      <span
+        v-if="error.length > 0"
+        :class="$style.form__error"
+      >
+        {{ error }}
+      </span>
     </ElForm>
   </ElCard>
 </template>
@@ -37,6 +43,7 @@
 import FormInput from '~/components/admin/form/FormInput'
 import FormColorPicker from '~/components/admin/form/FormColorPicker'
 import FormSelect from '~/components/admin/form/FormSelect'
+import FormSelectValue from '~/components/admin/form/FormSelectValue'
 import AppButton from '~/components/admin/elements/button/AppButton'
 
 export default {
@@ -46,7 +53,8 @@ export default {
     FormInput,
     FormColorPicker,
     FormSelect,
-    AppButton
+    AppButton,
+    FormSelectValue
   },
 
   props: {
@@ -68,6 +76,11 @@ export default {
     actions: {
       type: Array,
       default: () => {}
+    },
+
+    error: {
+      type: String,
+      default: ''
     }
   },
 
@@ -106,5 +119,12 @@ export default {
   width: 100%;
   margin-top: 20px;
   box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+
+  .form {
+    &__error {
+      color: #f56c6c;
+      font-size: 12px;
+    }
+  }
 }
 </style>

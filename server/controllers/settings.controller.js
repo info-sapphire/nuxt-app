@@ -56,3 +56,23 @@ module.exports.update = async (req, res, next) => {
     })
   )
 }
+
+module.exports.create = async (req, res, next) => {
+  const { component, name, label, value, options } = req.body
+
+  settings[name] = {
+    ...schema,
+    label,
+    component,
+    value,
+    options
+  }
+
+  await fs.writeFileSync(dir, JSON.stringify(settings))
+
+  return next(
+    new CodedError('SUCCESS', {
+      data: settings
+    })
+  )
+}

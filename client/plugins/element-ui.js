@@ -16,7 +16,8 @@ import {
   ColorPicker,
   Dialog,
   Select,
-  Option
+  Option,
+  Checkbox
 } from 'element-ui'
 import lang from 'element-ui/lib/locale/lang/ru-RU'
 import locale from 'element-ui/lib/locale'
@@ -39,6 +40,7 @@ Vue.use(ColorPicker)
 Vue.use(Dialog)
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Checkbox)
 
 Vue.use(Loading.directive)
 
