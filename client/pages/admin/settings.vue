@@ -76,14 +76,22 @@ export default {
 
     actions: [],
 
-    dialog: null
+    dialog: null,
+
+    watch: true
   }),
 
   computed: {
     ...mapState({
       component: state => state.settings.schema,
       components: state => state.settings.components
-    })
+    }),
+
+    verifyComponents () {
+      return this.components !== null
+        ? this.components.map(item => item.component)
+        : false
+    }
   },
 
   watch: {
@@ -94,12 +102,37 @@ export default {
     //     console.log(value)
     //   }
     // },
-    // dialog: {
-    //   deep: true,
-    //   handler (value) {
-    //     console.log(value)
-    //   }
-    // }
+    dialog: {
+      deep: true,
+      handler (value) {
+        if (
+          value.data === undefined ||
+          this.verifyComponents === false ||
+          this.watch === false
+        ) {
+          return
+        }
+
+        if (this.verifyComponents.includes(value.data.type)) {
+          /** stop watching */
+          this.watch = false
+
+          /** update component */
+          this.dialog.schema.value = {
+            ...this.component,
+            component: value.data.type,
+            label: 'Значение по умолчанию'
+          }
+
+          /** start watching */
+          this.$nextTick(() => {
+            setTimeout(() => {
+              this.watch = true
+            }, 10)
+          })
+        }
+      }
+    }
   },
 
   created () {
@@ -145,12 +178,11 @@ export default {
         this.actions[index].loading = true
         this.schema().then(() => {
           /** schemas */
-          this.dialog.schema = {
+          this.$set(this.dialog, 'schema', {
             type: {
               ...this.component,
               component: 'FormSelect',
               label: 'Компонент',
-              // eslint-disable-next-line no-new-object
               options: this.components.map(item => {
                 return { label: item.name, value: item.component }
               })
@@ -164,16 +196,27 @@ export default {
               ...this.component,
               component: 'FormInput',
               label: 'Название свойства'
-            }
-          }
+            },
+            /** dynamic schema component */
+            value: null
+          })
+
           /** rules */
           this.dialog.rule = {
             type: [{ required: true }],
             name: [{ required: true, trigger: 'blur' }],
             label: [{ required: true, trigger: 'blur' }]
           }
+
           /** values */
-          this.$set(this.dialog, 'data', { type: '', name: '', label: '' })
+          this.$set(this.dialog, 'data', {
+            type: '',
+            name: '',
+            label: '',
+            /** dynamic component value */
+            value: ''
+          })
+
           /** actions */
           this.$set(this.dialog, 'actions', [])
           this.dialog.actions.push({
@@ -185,9 +228,10 @@ export default {
           })
 
           this.actions[index].loading = false
-
+          /** show dialog */
           this.dialog.state = true
 
+          /** reset field [value, error] */
           if (this.$refs.dialogForm !== undefined) {
             this.$nextTick(() => {
               this.$refs.dialogForm.$refs.form.resetFields()
@@ -197,8 +241,16 @@ export default {
       }
     },
 
-    onCreate () {
-      this.dialog.actions[0].loading = true
+    onCreate (emitName) {
+      const index = this.dialog.actions.findIndex(
+        action => action.emit === emitName
+      )
+
+      if (index !== -1) {
+        this.dialog.actions[index].loading = true
+
+        console.log(this.dialog.data)
+      }
     }
   }
 }

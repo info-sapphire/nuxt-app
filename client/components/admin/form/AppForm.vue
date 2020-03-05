@@ -11,7 +11,7 @@
     >
       <Component
         :is="item.component"
-        v-for="(item, index) in schema"
+        v-for="(item, index) in components"
         :key="index"
         v-model="value[index]"
         :prop="index"
@@ -68,6 +68,20 @@ export default {
     actions: {
       type: Array,
       default: () => {}
+    }
+  },
+
+  computed: {
+    components () {
+      return Object.entries(this.schema).reduce((components, component) => {
+        const [name, schema] = component
+
+        if (schema !== null) {
+          components[name] = schema
+        }
+
+        return components
+      }, {})
     }
   },
 

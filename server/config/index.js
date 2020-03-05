@@ -11,9 +11,9 @@ module.exports = {
   dirName: /[a-z0-9_]+$/,
   uploadDir: ['..', '..', 'client', 'static', 'uploads'],
   components: [
-    { name: 'input', component: 'FormInput' },
-    { name: 'color-picker', component: 'FormColorPicker' },
-    { name: 'select', component: 'FormSelect' }
+    { name: 'input', component: 'FormInput', type: String },
+    { name: 'color-picker', component: 'FormColorPicker', type: String },
+    { name: 'select', component: 'FormSelect', type: Array }
   ],
   schema: {
     component: '',

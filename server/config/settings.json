@@ -1,7 +1,7 @@
 {
   "input": {
     "component": "FormInput",
-    "value": "le vac122",
+    "value": "le vac12",
     "label": "Название сайта:",
     "options": [],
     "props": {},
