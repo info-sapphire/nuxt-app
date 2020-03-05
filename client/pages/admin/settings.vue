@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import AppPageHeadline from '~/components/admin/page/AppPageHeadline'
 import AppForm from '~/components/admin/form/AppForm'
@@ -69,14 +69,31 @@ export default {
     dialogDataLoaded: false
   }),
 
+  computed: {
+    ...mapState('settings', ['settings'])
+  },
+
   watch: {
-    // formData: {
-    //   deep: true,
-    //   immediate: true,
-    //   handler (value) {
-    //     console.log(value)
-    //   }
-    // },
+    settings: {
+      deep: true,
+      handler (value) {
+        const newProps = Object.entries(value).reduce((props, prop) => {
+          const [name] = prop
+          console.log(prop, name, props)
+          if (this.formSchema[name] === undefined) {
+            props.push(name)
+          }
+          return props
+        }, [])
+
+        if (newProps.length > 0) {
+          newProps.forEach(prop => {
+            this.$set(this.formData, prop, value[prop].value)
+            this.$set(this.formSchema, prop, value[prop])
+          })
+        }
+      }
+    }
   },
 
   created () {
