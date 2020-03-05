@@ -2,6 +2,7 @@
   <ElFormItem
     :prop="prop"
     :label="label"
+    :class="$style.item"
   >
     <ElSelect
       :value="value"
@@ -52,3 +53,18 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" module>
+.item {
+  display: flex;
+  flex-direction: column;
+
+  :global(.el-form-item__label) {
+    text-align: left;
+  }
+
+  :global(.el-select) {
+    min-width: 250px;
+  }
+}
+</style>

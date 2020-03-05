@@ -56,5 +56,16 @@ export const actions = {
     } catch (err) {
       console.error(err)
     }
+  },
+
+  async create({ commit }, payload) {
+    try {
+      const { create } = this.$repository.settings
+      const { data } = await create(payload)
+
+      commit('SET_SETTINGS', data)
+    } catch (err) {
+      console.error(err)
+    }
   }
 }

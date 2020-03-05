@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import AppForm from '~/components/admin/form/AppForm'
 
@@ -143,7 +143,9 @@ export default {
   },
 
   methods: {
-    onCreate (emitName) {
+    ...mapActions('settings', ['create']),
+
+    async onCreate (emitName) {
       const index = this.formActions.findIndex(
         action => action.emit === emitName
       )
@@ -156,10 +158,15 @@ export default {
         let value = ''
 
         if (this.formSchema.value.component === 'FormSelectValue') {
-          options = this.formData.value
-
           /** check to fill all fields label & value */
           if (this.formData.value.length > 0) {
+            options = this.formData.value.map(item => {
+              return {
+                label: item.label,
+                value: item.value
+              }
+            })
+
             const checkbox = this.formData.value.find(item => item.checked)
             if (checkbox !== undefined) {
               value = checkbox.value
@@ -187,7 +194,11 @@ export default {
             value
           }
 
-          console.log(formData)
+          try {
+            await this.create(formData)
+          } catch (err) {
+            console.error(err)
+          }
         }
 
         this.formActions[index].loading = false
