@@ -4,8 +4,20 @@
       title="Добавление новой опции"
       :visible.sync="showDialog"
       :show-close="false"
+      :close-on-click-modal="false"
       :class="$style.dialog"
     >
+      <div
+        slot="title"
+        :class="$style.dialog__title"
+      >
+        <span class="el-dialog__title">Добавление новой опции</span>
+        <AwesomeIcon
+          :name="'times'"
+          :class="$style.dialog__close"
+          @click="onClose"
+        />
+      </div>
       <AppForm
         ref="dialogForm"
         :schema="formSchema"
@@ -149,6 +161,10 @@ export default {
   methods: {
     ...mapActions('settings', ['create']),
 
+    onClose () {
+      this.showDialog = false
+    },
+
     async onCreate (emitName) {
       const index = this.formActions.findIndex(
         action => action.emit === emitName
@@ -234,6 +250,18 @@ export default {
       :global(.el-dialog__body) {
         padding: 0;
       }
+    }
+
+    &__title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__close {
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
     }
 
     &__form {

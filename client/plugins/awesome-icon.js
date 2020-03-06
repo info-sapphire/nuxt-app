@@ -17,6 +17,7 @@ import aIEye from '@/assets/awesome-icons/light/aIEye'
 import aIEyeSlash from '@/assets/awesome-icons/light/aIEyeSlash'
 import aIPhotoVideo from '@/assets/awesome-icons/light/aIPhotoVideo'
 import aITrashAlt from '@/assets/awesome-icons/light/aITrashAlt'
+import aITimes from '@/assets/awesome-icons/light/aITimes'
 
 const icons = [
   aILanguage,
@@ -27,7 +28,8 @@ const icons = [
   aIEye,
   aIEyeSlash,
   aIPhotoVideo,
-  aITrashAlt
+  aITrashAlt,
+  aITimes
 ]
 
 Vue.component('AwesomeIcon', {
