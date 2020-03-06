@@ -88,7 +88,8 @@ export default {
         this.formSchema.value = {
           ...this.component,
           component,
-          label
+          label,
+          position: 3
         }
       }
     }
@@ -102,19 +103,22 @@ export default {
       label: 'Компонент',
       options: this.components.map(item => {
         return { label: item.name, value: item.component }
-      })
+      }),
+      position: 0
     }
 
     this.formSchema.name = {
       ...this.component,
       component: 'FormInput',
-      label: 'Ключ свойства'
+      label: 'Ключ свойства',
+      position: 1
     }
 
     this.formSchema.label = {
       ...this.component,
       component: 'FormInput',
-      label: 'Название свойства'
+      label: 'Название свойства',
+      position: 2
     }
 
     /** dynamic schema component */

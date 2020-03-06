@@ -60,12 +60,17 @@ module.exports.update = async (req, res, next) => {
 module.exports.create = async (req, res, next) => {
   const { component, name, label, value, options } = req.body
 
+  let position = Object.values(settings).reduce((position, value) => {
+    return position <= value.position ? value.position : position
+  }, 0)
+
   settings[name] = {
     ...schema,
     label,
     component,
     value,
-    options
+    options,
+    position: ++position
   }
 
   await fs.writeFileSync(dir, JSON.stringify(settings))
