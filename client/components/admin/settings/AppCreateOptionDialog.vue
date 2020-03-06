@@ -205,6 +205,7 @@ export default {
           }
         }
 
+        this.showDialog = false
         this.formActions[index].loading = false
       }
     }
