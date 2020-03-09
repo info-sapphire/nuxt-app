@@ -316,6 +316,10 @@ export default {
     background-position-x: 5px;
   }
 
+  :global(.el-tree-node__children) {
+    padding-left: 18px;
+  }
+
   .actions {
     margin: 10px 0;
   }
