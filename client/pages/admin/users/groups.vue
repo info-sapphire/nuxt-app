@@ -92,6 +92,7 @@
               node-key="id"
               highlight-current
               :props="defaultProps"
+              :class="$style.list__group__tree"
             >
               <span
                 slot-scope="{ node }"
@@ -110,6 +111,7 @@
             <AppButton
               type="primary"
               size="mini"
+              :class="$style.list__group__update"
               @click="onUpdate({ id: '_id', position: group.position })"
             >
               Обновить группу
@@ -303,6 +305,17 @@ export default {
     margin-right: 10px;
   }
 
+  :global(.el-tree-node__expand-icon:not(.is-leaf):before) {
+    content: '';
+    display: block;
+    background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="448px" height="512px" viewBox="0 0 448 512"><path d="M0 128.032v255.93c0 28.425 34.488 42.767 54.627 22.627l128-127.962c12.496-12.496 12.497-32.758 0-45.255l-128-127.968C34.528 85.305 0 99.55 0 128.032zM160 256L32 384V128l128 128z"></path></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 20px;
+    background-position-x: 5px;
+  }
+
   .actions {
     margin: 10px 0;
   }
@@ -325,6 +338,15 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+      }
+
+      &__tree {
+        height: 280px;
+        overflow-y: scroll;
+      }
+
+      &__update {
+        margin-top: 10px;
       }
 
       &__info {
