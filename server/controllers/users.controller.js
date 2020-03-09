@@ -117,6 +117,20 @@ module.exports.login = async (req, res, next) => {
   }
 }
 
+module.exports.list = async (req, res, next) => {
+  try {
+    const users = await User.find()
+
+    return next(
+      new CodedError('SUCCESS', {
+        data: users
+      })
+    )
+  } catch (error) {
+    return next(new CodedError('CODE_ERROR', { message: error.message }))
+  }
+}
+
 module.exports.groupsList = async (req, res, next) => {
   try {
     const groups = await Group.find().sort({ position: 1 })

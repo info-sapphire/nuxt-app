@@ -21,7 +21,7 @@
       <ElTableColumn
         fixed="right"
         label="Operations"
-        width="120"
+        :min-width="120"
       >
         <template slot-scope="scope">
           <ElButton
@@ -63,12 +63,12 @@ export default {
     breadcrumbs: [{ name: 'Пользователи', link: '' }],
 
     tableSchema: [
-      { prop: 'date', label: 'Date', width: '150', fixed: true },
-      { prop: 'name', label: 'Name', width: '120' },
-      { prop: 'state', label: 'State', width: '120' },
-      { prop: 'city', label: 'City', width: '120' },
-      { prop: 'address', label: 'Address', width: '120' },
-      { prop: 'zip', label: 'Zip', width: '120' }
+      { prop: 'date', label: 'Date', 'min-width': '150', fixed: true },
+      { prop: 'name', label: 'Name', 'min-width': '120' },
+      { prop: 'state', label: 'State', 'min-width': '120' },
+      { prop: 'city', label: 'City', 'min-width': '120' },
+      { prop: 'address', label: 'Address', 'min-width': '180' },
+      { prop: 'zip', label: 'Zip', 'min-width': '120' }
     ],
 
     tableData: [
