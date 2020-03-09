@@ -4,6 +4,16 @@
       :breadcrumbs="breadcrumbs"
       :name="page.name"
     />
+    <div :class="$style.actions">
+      <AppButton
+        type="success"
+        size="mini"
+        @click="onPopup"
+      >
+        Добавить пользователя
+      </AppButton>
+      <!-- <AppCreateGroupDialog ref="createGroupDialog" /> -->
+    </div>
     <ElTable
       :data="tableData"
       :load="load"
@@ -47,12 +57,14 @@
 // import { mapState, mapActions } from 'vuex'
 
 import AppPageHeadline from '~/components/admin/page/AppPageHeadline'
+import AppButton from '~/components/admin/elements/button/AppButton'
 
 export default {
   layout: 'admin',
 
   components: {
-    AppPageHeadline
+    AppPageHeadline,
+    AppButton
   },
 
   data: () => ({
@@ -126,6 +138,8 @@ export default {
   },
 
   methods: {
+    onPopup () {},
+
     handleClick (scope) {
       console.log(scope)
     },
@@ -152,5 +166,8 @@ export default {
 
 <style lang="scss" module>
 .wrapper {
+  .actions {
+    margin: 10px 0;
+  }
 }
 </style>

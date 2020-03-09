@@ -8,13 +8,11 @@
       <AppButton
         type="success"
         size="mini"
-        :loading="createGroupDialogSchemaLoading"
-        @click="onPopup"
+        @click="$refs.createGroupDialog.showDialog = true"
       >
         Добавить группу
       </AppButton>
       <AppCreateGroupDialog
-        v-if="createGroupDialogLoaded"
         ref="createGroupDialog"
         :position="lastPosition"
       />
@@ -162,10 +160,6 @@ export default {
       { name: 'Группы', link: '' }
     ],
 
-    createGroupDialogSchemaLoading: false,
-    createGroupDialogVisible: false,
-    createGroupDialogLoaded: false,
-
     defaultProps: {
       children: 'children',
       label: 'label'
@@ -216,12 +210,7 @@ export default {
     }
   },
 
-  mounted () {
-    console.log('groups: ', this.groups)
-  },
-
   methods: {
-    ...mapActions('settings', ['schema']),
     ...mapActions('users', {
       _removeGroup: 'removeGroup',
       updateGroup: 'updateGroup'
@@ -294,23 +283,6 @@ export default {
             this.popover[index].update = false
           })
       }
-    },
-
-    onPopup () {
-      this.createGroupDialogSchemaLoading = true
-
-      this.schema().then(() => {
-        setTimeout(() => {
-          if (!this.createGroupDialogLoaded) {
-            this.createGroupDialogLoaded = true
-          }
-
-          this.$nextTick(() => {
-            this.$refs.createGroupDialog.showDialog = true
-            this.createGroupDialogSchemaLoading = false
-          })
-        }, 100)
-      })
     }
   }
 }
