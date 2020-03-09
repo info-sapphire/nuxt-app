@@ -75,7 +75,7 @@
                   slot="reference"
                   size="mini"
                   type="danger"
-                  :loading="popover[index].loading"
+                  :loading="popover[index].remove"
                   :class="$style.list__group__remove"
                 >
                   <AwesomeIcon :name="'trash-alt'" />
@@ -111,8 +111,15 @@
             <AppButton
               type="primary"
               size="mini"
+              :loading="popover[index].update"
               :class="$style.list__group__update"
-              @click="onUpdate({ id: '_id', position: group.position })"
+              @click="
+                onUpdateRoles({
+                  index,
+                  id: group._id,
+                  position: group.position
+                })
+              "
             >
               Обновить группу
             </AppButton>
@@ -196,7 +203,7 @@ export default {
       immediate: true,
       handler (value) {
         value.forEach(_ => {
-          this.popover.push({ show: false, loading: false })
+          this.popover.push({ show: false, remove: false, update: false })
         })
       }
     }
@@ -209,7 +216,8 @@ export default {
   methods: {
     ...mapActions('settings', ['schema']),
     ...mapActions('users', {
-      _removeGroup: 'removeGroup'
+      _removeGroup: 'removeGroup',
+      updateGroup: 'updateGroup'
     }),
 
     removeGroup ({ id, index }) {
@@ -252,10 +260,32 @@ export default {
       }
     },
 
-    onUpdate (object) {
-      const tree = this.$refs[`treeRoles_${object.position}`]
+    onUpdateRoles ({ index, id, position }) {
+      const tree = this.$refs[`treeRoles_${position}`]
       if (tree !== undefined) {
-        console.log(tree[0].getCheckedKeys())
+        this.popover[index].update = true
+
+        const roles = tree[0].getCheckedKeys()
+        const dummy = []
+
+        roles.forEach(role => {
+          // eslint-disable-next-line unicorn/prefer-includes
+          const parent = roles.find(r => r.indexOf(`${role}_`) !== -1)
+          if (parent === undefined) {
+            dummy.push(role)
+          }
+        })
+
+        this.updateGroup({ id, payload: { roles: dummy } })
+          .then(() => {
+            this.$message({
+              message: 'Группа успешно удалена',
+              type: 'success'
+            })
+          })
+          .finally(() => {
+            this.popover[index].update = false
+          })
       }
     },
 

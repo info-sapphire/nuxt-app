@@ -8,6 +8,10 @@ export default $axios => ({
     return $axios.$post('/api/users/groups/create', payload)
   },
 
+  updateGroup({ id, payload }) {
+    return $axios.$put(`/api/users/groups/update/${id}`, payload)
+  },
+
   removeGroup(payload) {
     return $axios.$delete(`/api/users/groups/remove/${payload}`)
   }

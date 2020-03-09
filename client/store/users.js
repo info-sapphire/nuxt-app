@@ -66,6 +66,10 @@ export const mutations = {
       state.groups = [payload]
     }
   },
+  UPDATE_GROUP: (state, payload) => {
+    const index = state.groups.findIndex(group => group._id === payload._id)
+    state.groups[index] = payload
+  },
   REMOVE_GROUP: (state, payload) => {
     const index = state.groups.findIndex(group => group._id === payload)
     if (index !== -1) {
@@ -108,6 +112,17 @@ export const actions = {
       const { data } = await createGroup(payload)
 
       commit('ADD_GROUP', data)
+    } catch (err) {
+      console.error(err)
+    }
+  },
+
+  async updateGroup({ commit }, payload) {
+    try {
+      const { updateGroup } = this.$repository.users
+      const { data } = await updateGroup(payload)
+
+      commit('UPDATE_GROUP', data)
     } catch (err) {
       console.error(err)
     }

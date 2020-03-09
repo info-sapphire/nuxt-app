@@ -159,6 +159,31 @@ module.exports.createGroup = async (req, res, next) => {
   }
 }
 
+module.exports.updateGroup = async (req, res, next) => {
+  const $set = {}
+
+  const { roles } = req.body
+
+  if (roles !== undefined) {
+    $set.roles = roles
+  }
+
+  try {
+    const group = await Group.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set },
+      { new: true }
+    )
+    return next(
+      new CodedError('SUCCESS', {
+        data: group
+      })
+    )
+  } catch (error) {
+    return next(new CodedError('CODE_ERROR', { message: error.message }))
+  }
+}
+
 module.exports.removeGroup = async (req, res, next) => {
   const { id } = req.params
 
@@ -174,28 +199,3 @@ module.exports.removeGroup = async (req, res, next) => {
     return next(new CodedError('CODE_ERROR', { message: error.message }))
   }
 }
-
-// module.exports.updateGroup = async (req, res, next) => {
-//   const { component, name, label, value, options } = req.body
-
-//   let position = Object.values(settings).reduce((position, value) => {
-//     return position <= value.position ? value.position : position
-//   }, 0)
-
-//   settings[name] = {
-//     ...schema,
-//     label,
-//     component,
-//     value,
-//     options,
-//     position: ++position
-//   }
-
-//   await fs.writeFileSync(dir, JSON.stringify(settings))
-
-//   return next(
-//     new CodedError('SUCCESS', {
-//       data: settings
-//     })
-//   )
-// }
