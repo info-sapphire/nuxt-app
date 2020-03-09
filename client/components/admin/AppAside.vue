@@ -70,18 +70,27 @@ export default {
 <style lang="scss" module>
 .menu {
   height: 100%;
-}
 
-.icon {
-  color: #909399;
-  width: 20px;
-  height: 20px;
-  margin: 0 4px 0 1px;
-}
+  :global(.el-menu-item.is-active) {
+    .icon {
+      color: #ee4070;
+    }
+  }
 
-:global(.el-menu-item.is-active) {
+  :global(.el-submenu.is-active .el-submenu__title) {
+    color: #ee4070 !important;
+    border-bottom-color: transparent;
+
+    :global(.awesome-icon) {
+      color: #ee4070;
+    }
+  }
+
   .icon {
-    color: #ee4070;
+    color: #909399;
+    width: 20px;
+    height: 20px;
+    margin: 0 4px 0 1px;
   }
 }
 </style>
