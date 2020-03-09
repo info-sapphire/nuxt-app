@@ -286,7 +286,7 @@ export default {
         this.updateGroup({ id, payload: { roles: dummy } })
           .then(() => {
             this.$message({
-              message: 'Группа успешно удалена',
+              message: 'Роли группы успешно обновлены',
               type: 'success'
             })
           })
