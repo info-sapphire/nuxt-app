@@ -202,8 +202,15 @@ export default {
       deep: true,
       immediate: true,
       handler (value) {
-        value.forEach(_ => {
+        value.forEach(group => {
           this.popover.push({ show: false, remove: false, update: false })
+
+          this.$nextTick(() => {
+            const tree = this.$refs[`treeRoles_${group.position}`]
+            if (tree !== undefined) {
+              tree[0].setCheckedKeys(group.roles)
+            }
+          })
         })
       }
     }
