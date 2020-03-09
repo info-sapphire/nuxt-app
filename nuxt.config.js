@@ -25,8 +25,6 @@ module.exports = {
     '@/plugins/axios',
     '@/plugins/repository',
     '@/plugins/vue-slicksort'
-    // { src: '@/plugins/draggable-tree', mode: 'client' },
-    // { src: '@/plugins/vue-slicksort', mode: 'client' }
   ],
   buildModules: ['@nuxtjs/eslint-module'],
   modules: [

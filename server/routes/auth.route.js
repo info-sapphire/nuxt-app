@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const { check } = require('express-validator')
-const { create, login } = require('../controllers/user.controller')
+const { create, login } = require('../controllers/users.controller')
 
 router.post(
   '/create',

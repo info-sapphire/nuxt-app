@@ -22,5 +22,13 @@ module.exports = {
     options: [],
     props: {},
     on: {}
-  }
+  },
+  roles: [
+    { name: 'ADMIN_VIEW', description: 'Просмотр панели администратора' },
+    { name: 'DEVELOPER', description: 'Разработчик' },
+    { name: 'DEMO', description: 'Демо' },
+    { name: 'SETTINGS_VIEW', description: 'Просмотр секции настроек' },
+    { name: 'SETTINGS_UPDATE', description: 'Редактирование настроек' },
+    { name: 'SETTINGS_CREATE', description: 'Добавление настроек' }
+  ]
 }

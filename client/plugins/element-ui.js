@@ -11,13 +11,20 @@ import {
   Input,
   Button,
   Menu,
+  Submenu,
   MenuItem,
   Divider,
   ColorPicker,
   Dialog,
   Select,
   Option,
-  Checkbox
+  Checkbox,
+  Table,
+  TableColumn,
+  Tree,
+  Popover
+  // Collapse,
+  // CollapseItem
 } from 'element-ui'
 import lang from 'element-ui/lib/locale/lang/ru-RU'
 import locale from 'element-ui/lib/locale'
@@ -34,6 +41,7 @@ Vue.use(FormItem)
 Vue.use(Input)
 Vue.use(Button)
 Vue.use(Menu)
+Vue.use(Submenu)
 Vue.use(MenuItem)
 Vue.use(Divider)
 Vue.use(ColorPicker)
@@ -41,6 +49,12 @@ Vue.use(Dialog)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(Checkbox)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Tree)
+Vue.use(Popover)
+// Vue.use(Collapse)
+// Vue.use(CollapseItem)
 
 Vue.use(Loading.directive)
 

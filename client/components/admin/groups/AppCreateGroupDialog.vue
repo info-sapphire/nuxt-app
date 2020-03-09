@@ -10,7 +10,7 @@
         slot="title"
         :class="$style.dialog__title"
       >
-        <span class="el-dialog__title">Добавление новой опции</span>
+        <span class="el-dialog__title">Добавление новой группы</span>
         <AwesomeIcon
           :name="'times'"
           :class="$style.dialog__close"
@@ -37,15 +37,22 @@ import { mapState, mapActions } from 'vuex'
 import AppForm from '~/components/admin/form/AppForm'
 
 export default {
-  name: 'AppCreateOptionDialog',
+  name: 'AppCreateGroupDialog',
 
   components: {
     AppForm
   },
 
+  props: {
+    position: {
+      type: Number,
+      required: true
+    }
+  },
+
   data: () => ({
     formSchema: {},
-    formRule: { type: [], name: [], label: [] },
+    formRule: { name: [], key: [], description: [] },
     formData: {},
     formActions: [],
 
@@ -74,83 +81,46 @@ export default {
           this.$refs.dialogForm.$refs.form.resetFields()
         })
       }
-    },
-
-    'formData.type' (value) {
-      if (!this.verifyComponents) {
-        return
-      }
-
-      let component = value
-      value = ''
-      let label = 'Значение по умолчанию'
-
-      if (this.verifyComponents.includes(component)) {
-        if (['FormSelect'].includes(component)) {
-          component = 'FormSelectValue'
-          value = []
-          label = 'Значения'
-        }
-
-        /** reset current value for value component */
-        this.formData.value = value
-
-        /** change value component */
-        this.formSchema.value = {
-          ...this.component,
-          component,
-          label,
-          position: 3
-        }
-      }
     }
   },
 
   created () {
     /** create form schema */
-    this.formSchema.type = {
-      ...this.component,
-      component: 'FormSelect',
-      label: 'Компонент',
-      options: this.components.map(item => {
-        return { label: item.name, value: item.component }
-      }),
-      position: 0
-    }
-
     this.formSchema.name = {
       ...this.component,
       component: 'FormInput',
-      label: 'Ключ свойства',
+      label: 'Имя группы',
+      position: 0
+    }
+
+    this.formSchema.key = {
+      ...this.component,
+      component: 'FormInput',
+      label: 'Ключ группы',
       position: 1
     }
 
-    this.formSchema.label = {
+    this.formSchema.description = {
       ...this.component,
       component: 'FormInput',
-      label: 'Название свойства',
+      label: 'Описание группы',
+      props: { type: 'textarea', rows: 4, resize: 'none' },
       position: 2
     }
 
-    /** dynamic schema component */
-    this.$set(this.formSchema, 'value', null)
-
     /** add form rules */
-    this.formRule.type.push({ required: true })
-    this.formRule.name.push({ required: true, trigger: 'blur' })
-    this.formRule.label.push({ required: true, trigger: 'blur' })
+    this.formRule.name.push({ required: true })
+    this.formRule.key.push({ required: true, trigger: 'blur' })
 
     /** add form values */
-    this.$set(this.formData, 'type', '')
     this.$set(this.formData, 'name', '')
-    this.$set(this.formData, 'label', '')
-    /** dynamic component value */
-    this.$set(this.formData, 'value', null)
+    this.$set(this.formData, 'key', '')
+    this.$set(this.formData, 'description', '')
 
     /** actions */
     this.formActions.push({
       emit: 'create',
-      type: 'warning',
+      type: 'success',
       loading: false,
       validate: true,
       name: 'Добавить'
@@ -158,7 +128,7 @@ export default {
   },
 
   methods: {
-    ...mapActions('settings', ['create']),
+    ...mapActions('users', ['createGroup']),
 
     onClose () {
       this.showDialog = false
@@ -173,48 +143,12 @@ export default {
         this.formError = ''
         this.formActions[index].loading = true
 
-        let options = []
-        let value = ''
-
-        if (this.formSchema.value.component === 'FormSelectValue') {
-          /** check to fill all fields label & value */
-          if (this.formData.value.length > 0) {
-            options = this.formData.value.map(item => {
-              return {
-                label: item.label,
-                value: item.value
-              }
-            })
-
-            const checkbox = this.formData.value.find(item => item.checked)
-            if (checkbox !== undefined) {
-              value = checkbox.value
-            } else {
-              this.formError = 'Выберите значение по умолчанию'
-            }
-
-            this.formData.value.forEach(item => {
-              const { label, value } = item
-              if (!label.length || !value.length) {
-                this.formError = 'Заполните все поля значения по умолчанию'
-              }
-            })
-          }
-        } else {
-          value = this.formData.value
-        }
-
         if (!this.formError.length) {
-          const formData = {
-            component: this.formData.type,
-            name: this.formData.name,
-            label: this.formData.label,
-            options,
-            value
-          }
-
           try {
-            await this.create(formData)
+            await this.createGroup({
+              ...this.formData,
+              position: this.position
+            })
           } catch (err) {
             console.error(err)
           }

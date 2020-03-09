@@ -18,6 +18,9 @@ import aIEyeSlash from '@/assets/awesome-icons/light/aIEyeSlash'
 import aIPhotoVideo from '@/assets/awesome-icons/light/aIPhotoVideo'
 import aITrashAlt from '@/assets/awesome-icons/light/aITrashAlt'
 import aITimes from '@/assets/awesome-icons/light/aITimes'
+import aIUsers from '@/assets/awesome-icons/light/aIUsers'
+import aIUsersCrown from '@/assets/awesome-icons/light/aIUsersCrown'
+import aIPollPeople from '@/assets/awesome-icons/light/aIPollPeople'
 
 const icons = [
   aILanguage,
@@ -29,7 +32,10 @@ const icons = [
   aIEyeSlash,
   aIPhotoVideo,
   aITrashAlt,
-  aITimes
+  aITimes,
+  aIUsers,
+  aIUsersCrown,
+  aIPollPeople
 ]
 
 Vue.component('AwesomeIcon', {

@@ -28,6 +28,29 @@
       />
       <span>Языки</span>
     </ElMenuItem>
+    <ElSubmenu index="/admin/users">
+      <template slot="title">
+        <AwesomeIcon
+          :class="$style.icon"
+          :name="'users'"
+        />
+        <span>Пользователи</span>
+      </template>
+      <ElMenuItem index="/admin/users">
+        <AwesomeIcon
+          :class="$style.icon"
+          :name="'poll-people'"
+        />
+        <span>Список</span>
+      </ElMenuItem>
+      <ElMenuItem index="/admin/users/groups">
+        <AwesomeIcon
+          :class="$style.icon"
+          :name="'users-crown'"
+        />
+        <span>Группы</span>
+      </ElMenuItem>
+    </ElSubmenu>
     <ElMenuItem index="/admin/settings">
       <AwesomeIcon
         :class="$style.icon"

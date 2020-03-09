@@ -22,6 +22,7 @@ const error = require('./middlewares/error')
  */
 const authRoute = require('./routes/auth.route')
 const mediaRoutes = require('./routes/media.route')
+const usersRoutes = require('./routes/users.route')
 const settingsRoutes = require('./routes/settings.route')
 const dynamicRoutes = require('./routes/dynamic.route')
 
@@ -40,6 +41,7 @@ app.use(BASE_API_URL + 'auth', authRoute)
  * Init Base Routes
  */
 app.use(BASE_API_URL + 'media', mediaRoutes)
+app.use(BASE_API_URL + 'users', usersRoutes)
 app.use(BASE_API_URL + 'settings', settingsRoutes)
 
 /**
