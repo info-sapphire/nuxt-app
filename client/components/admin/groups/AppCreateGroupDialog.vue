@@ -149,8 +149,16 @@ export default {
               ...this.formData,
               position: this.position
             })
+            this.$message({
+              message: 'Группа успешно добавлена',
+              type: 'success'
+            })
           } catch (err) {
             console.error(err)
+            this.$message({
+              message: err.message,
+              type: 'error'
+            })
           }
         }
 

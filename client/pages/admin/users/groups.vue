@@ -98,6 +98,7 @@
                 class="custom-tree-node"
               >
                 <span
+                  :key="'label-select'"
                   @click.stop="
                     onSelect({ id: node.label, position: group.position })
                   "
@@ -212,9 +213,16 @@ export default {
     removeGroup ({ id, index }) {
       this.popover[index].loading = true
       this.popover[index].show = false
-      this._removeGroup(id).finally(() => {
-        this.popover[index].loading = false
-      })
+      this._removeGroup(id)
+        .then(() => {
+          this.$message({
+            message: 'Группа успешно удалена',
+            type: 'success'
+          })
+        })
+        .finally(() => {
+          this.popover[index].loading = false
+        })
     },
 
     onSelect ({ id, position }) {
