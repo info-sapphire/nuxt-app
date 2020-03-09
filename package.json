@@ -13,7 +13,11 @@
     "prettier": "prettier --write '{client,server}/**/*.{vue,js}' '!client/assets/**/*.js'",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint:fix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
-    "lint:stage": "npm run prettier && npm run lint:fix"
+    "lint:stage": "npm run prettier && npm run lint:fix",
+    "heroku-postbuild": "npm run build"
+  },
+  "engines": {
+    "node": "13.x"
   },
   "lint-staged": {
     "*.{js,vue}": [
