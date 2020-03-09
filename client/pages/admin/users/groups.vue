@@ -121,7 +121,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Draggable from 'vuedraggable'
 
 import AppPageHeadline from '~/components/admin/page/AppPageHeadline'
@@ -167,8 +167,7 @@ export default {
   }),
 
   computed: {
-    ...mapState('users', ['groups']),
-    ...mapGetters('users', ['roles']),
+    ...mapGetters('users', ['roles', 'groups']),
 
     groupsLoaded () {
       return this.groups.length > 0
@@ -206,11 +205,16 @@ export default {
 
   methods: {
     ...mapActions('settings', ['schema']),
+    ...mapActions('users', {
+      _removeGroup: 'removeGroup'
+    }),
 
     removeGroup ({ id, index }) {
       this.popover[index].loading = true
       this.popover[index].show = false
-      console.log(id)
+      this._removeGroup(id).finally(() => {
+        this.popover[index].loading = false
+      })
     },
 
     onSelect ({ id, position }) {

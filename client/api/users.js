@@ -6,5 +6,9 @@ export default $axios => ({
 
   createGroup(payload) {
     return $axios.$post('/api/users/groups/create', payload)
+  },
+
+  removeGroup(payload) {
+    return $axios.$delete(`/api/users/groups/remove/${payload}`)
   }
 })

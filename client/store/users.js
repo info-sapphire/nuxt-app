@@ -65,6 +65,15 @@ export const mutations = {
     } else {
       state.groups = [payload]
     }
+  },
+  REMOVE_GROUP: (state, payload) => {
+    const index = state.groups.findIndex(group => group._id === payload)
+    if (index !== -1) {
+      state.groups.splice(index, 1)
+    }
+    if (state.groups.length === 0) {
+      state.groups = null
+    }
   }
 }
 
@@ -99,6 +108,17 @@ export const actions = {
       const { data } = await createGroup(payload)
 
       commit('ADD_GROUP', data)
+    } catch (err) {
+      console.error(err)
+    }
+  },
+
+  async removeGroup({ commit }, payload) {
+    try {
+      const { removeGroup } = this.$repository.users
+      await removeGroup(payload)
+
+      commit('REMOVE_GROUP', payload)
     } catch (err) {
       console.error(err)
     }

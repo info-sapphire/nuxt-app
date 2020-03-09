@@ -159,6 +159,22 @@ module.exports.createGroup = async (req, res, next) => {
   }
 }
 
+module.exports.removeGroup = async (req, res, next) => {
+  const { id } = req.params
+
+  try {
+    await Group.deleteOne({ _id: id })
+
+    return next(
+      new CodedError('SUCCESS', {
+        data: id
+      })
+    )
+  } catch (error) {
+    return next(new CodedError('CODE_ERROR', { message: error.message }))
+  }
+}
+
 // module.exports.updateGroup = async (req, res, next) => {
 //   const { component, name, label, value, options } = req.body
 

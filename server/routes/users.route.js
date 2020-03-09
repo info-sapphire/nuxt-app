@@ -6,7 +6,8 @@ const {
   //   update,
   //   create,
   groupsList,
-  createGroup
+  createGroup,
+  removeGroup
 } = require('../controllers/users.controller')
 
 // router.get('/', options)
@@ -16,5 +17,6 @@ const {
 
 router.get('/groups/list', verifyAccessToken, groupsList)
 router.post('/groups/create', verifyAccessToken, createGroup)
+router.delete('/groups/remove/:id', verifyAccessToken, removeGroup)
 
 module.exports = router
