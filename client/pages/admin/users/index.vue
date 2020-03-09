@@ -8,11 +8,11 @@
       <AppButton
         type="success"
         size="mini"
-        @click="onPopup"
+        @click="$router.push('/admin/users/create')"
       >
         Добавить пользователя
       </AppButton>
-      <!-- <AppCreateGroupDialog ref="createGroupDialog" /> -->
+      <AppCreateUserDialog ref="createUserDialog" />
     </div>
     <ElTable
       :data="tableData"
