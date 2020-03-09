@@ -172,7 +172,7 @@ module.exports.updateGroup = async (req, res, next) => {
     const group = await Group.findOneAndUpdate(
       { _id: req.params.id },
       { $set },
-      { new: true }
+      { new: true, useFindAndModify: false }
     )
     return next(
       new CodedError('SUCCESS', {
