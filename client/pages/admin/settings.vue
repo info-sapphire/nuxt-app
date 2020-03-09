@@ -10,12 +10,9 @@
       :value="formData"
       :actions="formActions"
       @submit="onSubmit"
-      @popup="onPopup"
+      @popup="$refs.createOptionDialog.showDialog = true"
     />
-    <AppCreateOptionDialog
-      v-if="dialogDataLoaded"
-      ref="createOptionDialog"
-    />
+    <AppCreateOptionDialog ref="createOptionDialog" />
   </div>
 </template>
 
@@ -63,10 +60,7 @@ export default {
 
     breadcrumbs: [{ name: 'Настройки', link: '' }],
 
-    formActions: [],
-
-    showDialog: false,
-    dialogDataLoaded: false
+    formActions: []
   }),
 
   computed: {
@@ -122,28 +116,6 @@ export default {
       this.update(this.formData).finally(() => {
         this.loading = false
       })
-    },
-
-    onPopup (emitName) {
-      const index = this.formActions.findIndex(
-        action => action.emit === emitName
-      )
-
-      if (index !== -1) {
-        this.formActions[index].loading = true
-        this.schema().then(() => {
-          setTimeout(() => {
-            if (!this.dialogDataLoaded) {
-              this.dialogDataLoaded = true
-            }
-
-            this.$nextTick(() => {
-              this.$refs.createOptionDialog.showDialog = true
-              this.formActions[index].loading = false
-            })
-          }, 100)
-        })
-      }
     }
   }
 }
