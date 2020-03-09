@@ -4,7 +4,7 @@
   "description": "Universal Instagram CMS based on Nuxt.js",
   "author": "Sapphire",
   "private": true,
-  "exports": false,
+  "exports": null,
   "scripts": {
     "generate": "nuxt generate",
     "build": "nuxt build",
