@@ -230,29 +230,23 @@ export default {
     onSelect ({ id, position }) {
       const tree = this.$refs[`treeRoles_${position}`]
       if (tree !== undefined) {
-        const keys = tree[0].getCheckedKeys()
-        const key = keys.find(key => key === id)
+        let roles = tree[0].getCheckedKeys()
+        const role = roles.find(role => role === id)
 
-        if (key === undefined) {
-          keys.push(id)
+        if (role === undefined) {
+          roles.push(id)
         } else {
-          const index = keys.findIndex(key => key === id)
-          keys.splice(index, 1)
-        }
+          // eslint-disable-next-line unicorn/prefer-includes
+          roles = roles.filter(role => role.indexOf(id) === -1)
 
-        const filter = keys.filter(key => {
-          const t = key.split('_')
-          console.log('ex: ', keys, t)
-          if (t[1] !== undefined && keys.includes(t[0])) {
-            return true
-          } else {
-            return false
+          /** remove parent */
+          const findRole = role.split('_')
+          if (findRole[1] !== undefined) {
+            roles = roles.filter(role => role !== findRole[0])
           }
-        })
-
-        console.log('filter: ', filter)
-
-        tree[0].setCheckedKeys(keys)
+        }
+        console.log(roles)
+        tree[0].setCheckedKeys(roles)
       } else {
         console.warn(`unknown tree: treeRoles_${position}`)
       }
