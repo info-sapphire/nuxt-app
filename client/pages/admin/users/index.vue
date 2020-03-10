@@ -12,7 +12,6 @@
       >
         Добавить пользователя
       </AppButton>
-      <AppCreateUserDialog ref="createUserDialog" />
     </div>
     <ElTable
       :data="tableData"

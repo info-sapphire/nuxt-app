@@ -32,7 +32,7 @@ import LogoIcon from '~/assets/img/logo.svg'
 export default {
   name: 'Admin',
 
-  middleware: ['auth'],
+  middleware: ['auth', 'beforeAdmin'],
 
   components: {
     AppAside,

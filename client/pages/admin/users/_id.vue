@@ -47,7 +47,7 @@ export default {
     const formData = {
       email: '',
       passwd: '',
-      group: []
+      group: ''
     }
 
     formSchema.email = {
