@@ -1,9 +1,10 @@
 /* eslint-disable space-before-function-paren */
 export const actions = {
-  nuxtServerInit({ dispatch }) {
-    return Promise.all([
-      dispatch('auth/autoLogin'),
+  nuxtServerInit({ getters, dispatch }) {
+    dispatch('auth/autoLogin')
+
+    if (getters['auth/isAuth']) {
       dispatch('settings/schema')
-    ])
+    }
   }
 }
