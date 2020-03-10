@@ -111,10 +111,15 @@ export default {
   methods: {
     ...mapActions('settings', ['schema', 'update']),
 
-    onSubmit () {
-      this.loading = true
+    onSubmit (emitName) {
+      const index = this.formActions.findIndex(
+        action => action.emit === emitName
+      )
+
+      this.formActions[index].loading = true
+
       this.update(this.formData).finally(() => {
-        this.loading = false
+        this.formActions[index].loading = false
       })
     }
   }
