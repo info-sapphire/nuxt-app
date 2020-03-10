@@ -73,7 +73,6 @@ export default {
       handler (value) {
         const newProps = Object.entries(value).reduce((props, prop) => {
           const [name] = prop
-          console.log(prop, name, props)
           if (this.formSchema[name] === undefined) {
             props.push(name)
           }

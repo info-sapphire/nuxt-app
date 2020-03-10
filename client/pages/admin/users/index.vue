@@ -141,7 +141,7 @@ export default {
     onPopup () {},
 
     handleClick (scope) {
-      console.log(scope)
+      // console.log(scope)
     },
 
     load (tree, treeNode, resolve) {

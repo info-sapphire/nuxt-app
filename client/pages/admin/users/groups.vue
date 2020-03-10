@@ -249,7 +249,6 @@ export default {
             roles = roles.filter(role => role !== findRole[0])
           }
         }
-        console.log(roles)
         tree[0].setCheckedKeys(roles)
       } else {
         console.warn(`unknown tree: treeRoles_${position}`)
