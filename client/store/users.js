@@ -137,5 +137,32 @@ export const actions = {
     } catch (err) {
       console.error(err)
     }
+  },
+
+  async createUser(_, payload) {
+    try {
+      const { createUser } = this.$repository.users
+      await createUser(payload)
+    } catch (err) {
+      console.error(err)
+    }
+  },
+
+  async updateUser(_, payload) {
+    try {
+      const { updateUser } = this.$repository.users
+      await updateUser(payload)
+    } catch (err) {
+      console.error(err)
+    }
+  },
+
+  async removeUser(_, payload) {
+    try {
+      const { removeUser } = this.$repository.users
+      await removeUser(payload)
+    } catch (err) {
+      console.error(err)
+    }
   }
 }

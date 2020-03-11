@@ -21,16 +21,17 @@ const Group = require('../models/Group')
 
 module.exports.create = async (req, res, next) => {
   try {
-    const errors = validationResult(req)
+    /** for registration */
+    // const errors = validationResult(req)
 
-    if (!errors.isEmpty()) {
-      return next(
-        new CodedError('BAD_REQUEST', {
-          message: 'Некорректные данные при регистрации',
-          data: errors.array()
-        })
-      )
-    }
+    // if (!errors.isEmpty()) {
+    //   return next(
+    //     new CodedError('BAD_REQUEST', {
+    //       message: 'Некорректные данные при регистрации',
+    //       data: errors.array()
+    //     })
+    //   )
+    // }
 
     const { email, passwd } = req.body
 

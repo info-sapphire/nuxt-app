@@ -14,5 +14,17 @@ export default $axios => ({
 
   removeGroup(payload) {
     return $axios.$delete(`/api/users/groups/remove/${payload}`)
+  },
+
+  createUser(payload) {
+    return $axios.$post('/api/users/create', payload)
+  },
+
+  updateUser({ id, payload }) {
+    return $axios.$put(`/api/users/update/${id}`, payload)
+  },
+
+  removeUser(payload) {
+    return $axios.$delete(`/api/users/remove/${payload}`)
   }
 })
