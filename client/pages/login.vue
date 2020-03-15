@@ -172,7 +172,7 @@ export default {
 
 .card {
   width: 420px;
-  box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  // box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
 
   :global(.el-card__header) {
     padding: 12px 0;
