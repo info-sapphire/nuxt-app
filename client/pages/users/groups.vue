@@ -67,7 +67,7 @@ import AppPageHeadline from '~/components/elements/page-headline/AppPageHeadline
 
 import GroupActions from '~/components/groups/elements/groupActions'
 import RemoveGroup from '~/components/groups/elements/removeGroup'
-import UpdateGroup from '~/components/groups/elements/UpdateGroup'
+import UpdateGroup from '~/components/groups/elements/updateGroup'
 
 export default {
   components: {
