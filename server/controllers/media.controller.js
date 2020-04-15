@@ -5,6 +5,9 @@ const { storage, fileFilter } = require('../libraries/upload')
 const CodedError = require('../libraries/CodedError')
 const thumbnail = require('../libraries/thumbnail')
 const uploadDir = require('../utils/uploadDir')
+const {
+  thumbnail: { width, height }
+} = require('../config')
 
 /**
  * Создаем хранилище загрузок
@@ -13,7 +16,11 @@ const upload = multer({
   storage,
   fileFilter,
   limits: { fileSize: 1024 * 1024 * 5 }
-}).single('avatar')
+}).single('file')
+
+// можно юзать и так array('files', 3)
+// но лучше использвать single т.к при возникновении ошибки у одного из файлов
+// будет reject на всю массовую загрузку т.е ни одного файла не загрузится
 
 module.exports.list = (req, res, next) => {
   const { toDir } = req.query
@@ -38,6 +45,7 @@ module.exports.list = (req, res, next) => {
 
     return res.json({
       path: dirname.split('static')[1],
+      thumb: `.thumb/${width}x${height}_`,
       files: dir
     })
   } catch (e) {

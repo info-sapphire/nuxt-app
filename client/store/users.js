@@ -1,168 +1,79 @@
-/* eslint-disable space-before-function-paren */
 export const state = () => ({
-  roles: null,
-  groups: null
+  lastIndex: null
 })
 
-export const getters = {
-  roles: state => {
-    if (state.roles === null) {
-      return []
-    }
-
-    const roles = {}
-
-    state.roles.forEach(role => {
-      const [group] = role.name.split('_')
-
-      if (group in roles) {
-        roles[group].description = ''
-        roles[group].children.push({
-          id: role.name,
-          label: role.name,
-          description: role.description
-        })
-      } else {
-        roles[group] = {
-          id: group,
-          label: group,
-          description: role.description,
-          children: [
-            {
-              id: role.name,
-              label: role.name,
-              description: role.description
-            }
-          ]
-        }
-      }
-    })
-
-    return Object.values(roles).map(role =>
-      role.children.length === 1 ? role.children[0] : role
-    )
-  },
-
-  groups: state => {
-    if (state.groups === null) {
-      return []
-    }
-
-    return state.groups
-
-    // return state.groups.map(group => {
-    //   return { ...group, remove: false, loading: false }
-    // })
-  }
-}
-
 export const mutations = {
-  SET_ROLES: (state, payload) => (state.roles = payload),
-  SET_GROUPS: (state, payload) => (state.groups = payload),
-  ADD_GROUP: (state, payload) => {
-    if (state.groups !== null) {
-      state.groups.push(payload)
-    } else {
-      state.groups = [payload]
-    }
-  },
-  UPDATE_GROUP: (state, payload) => {
-    const index = state.groups.findIndex(group => group._id === payload._id)
-    state.groups[index] = payload
-  },
-  REMOVE_GROUP: (state, payload) => {
-    const index = state.groups.findIndex(group => group._id === payload)
-    if (index !== -1) {
-      state.groups.splice(index, 1)
-    }
-    if (state.groups.length === 0) {
-      state.groups = null
-    }
-  }
+  SET_INDEX: (state, payload) => (state.lastIndex = payload)
 }
 
 export const actions = {
-  async groupsList({ state, commit }, payload) {
-    if (state.groups !== null && state.roles !== null) {
-      return { roles: state.roles, groups: state.groups }
-    }
-
+  async list({ state, commit }, tryLoad = false) {
     try {
-      const { groupsList } = this.$repository.users
+      const { list } = this.$repository.users
+      let payload = {}
+
+      /** Из полученных данных в store сохраняется/обновляется только ObjectId
+       * при переходе на другую страницу listData будет утерян,
+       * но ObjectId последнего полученного элемента будет хранится
+       * следовательно если вернуться назад то запрос выполнится учитывая уже имеющийся ObjectId
+       * его надо как-то сбросить, в данный момент (DEVELOP) считаю нижеописанную конструкцию
+       * с входящей переменной tryLoad для игнорирования уже имеющегося ObjectId выгодной
+       */
+      if (tryLoad) {
+        const { lastIndex } = state
+        payload = { _id: { $lt: lastIndex } }
+      }
+
       const {
-        data: { groups, roles }
-      } = await groupsList(payload)
+        data: { results, next }
+      } = await list(payload)
 
-      const groupsDummy = groups.map(group => {
-        return { ...group, remove: false, loading: false }
-      })
+      if (results.length > 0) {
+        commit('SET_INDEX', results[results.length - 1]._id)
+      }
 
-      commit('SET_ROLES', roles)
-      commit('SET_GROUPS', groupsDummy)
+      return { results, next }
+    } catch (err) {
+      throw err
+    }
+  },
 
-      return { roles, groups }
+  async create(_, payload) {
+    try {
+      const { create } = this.$repository.users
+      return await create(payload)
     } catch (err) {
       console.error(err)
     }
   },
 
-  async createGroup({ commit }, payload) {
+  async update(_, payload) {
     try {
-      const { createGroup } = this.$repository.users
-      const { data } = await createGroup(payload)
-
-      commit('ADD_GROUP', data)
+      const { update } = this.$repository.users
+      return await update(payload)
     } catch (err) {
       console.error(err)
     }
   },
 
-  async updateGroup({ commit }, payload) {
+  async remove(_, userId) {
     try {
-      const { updateGroup } = this.$repository.users
-      const { data } = await updateGroup(payload)
-
-      commit('UPDATE_GROUP', data)
+      const { remove } = this.$repository.users
+      await remove(userId)
     } catch (err) {
-      console.error(err)
+      throw err
     }
   },
 
-  async removeGroup({ commit }, payload) {
+  async byId(_, userId) {
     try {
-      const { removeGroup } = this.$repository.users
-      await removeGroup(payload)
-
-      commit('REMOVE_GROUP', payload)
+      const { byId } = this.$repository.users
+      const {
+        data: { results }
+      } = await byId(userId)
+      return results.length > 0 ? results[0] : null
     } catch (err) {
-      console.error(err)
-    }
-  },
-
-  async createUser(_, payload) {
-    try {
-      const { createUser } = this.$repository.users
-      await createUser(payload)
-    } catch (err) {
-      console.error(err)
-    }
-  },
-
-  async updateUser(_, payload) {
-    try {
-      const { updateUser } = this.$repository.users
-      await updateUser(payload)
-    } catch (err) {
-      console.error(err)
-    }
-  },
-
-  async removeUser(_, payload) {
-    try {
-      const { removeUser } = this.$repository.users
-      await removeUser(payload)
-    } catch (err) {
-      console.error(err)
+      throw err
     }
   }
 }

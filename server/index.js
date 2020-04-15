@@ -2,10 +2,19 @@ const express = require('express')
 const mongoose = require('mongoose')
 const consola = require('consola')
 const bodyParser = require('body-parser')
+const connectTimeout = require('connect-timeout')
+const helmet = require('helmet')
+
+const isNuxt = process.env.NUXT_MODE !== 'off'
 const nuxt = require('./nuxt')
 const { BASE_API_URL } = require('./config')
 
-const { NUXT_ENV_MONGO_URI: MONGO_URI } = process.env
+const {
+  /* MONGO_URI */
+  NUXT_ENV_MONGO_URI: MONGO_URI,
+  /* TIMEOUT */
+  NUXT_ENV_TIMEOUT: TIMEOUT
+} = process.env
 
 /**
  * Libraries
@@ -15,22 +24,37 @@ const CodedError = require('./libraries/CodedError')
 /**
  * Middlewares
  */
-const error = require('./middlewares/error')
+const errorHandler = require('./middlewares/errorHandler')
 
 /**
  * Routes
  */
+const installRoute = require('./routes/install.route')
 const authRoute = require('./routes/auth.route')
 const mediaRoutes = require('./routes/media.route')
-const usersRoutes = require('./routes/users.route')
+const groupRoute = require('./routes/group.route')
+const userRoute = require('./routes/user.route')
 const settingsRoutes = require('./routes/settings.route')
-const dynamicRoutes = require('./routes/dynamic.route')
 
 // init app
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use(connectTimeout(TIMEOUT))
+app.use(
+  helmet({
+    hidePoweredBy: { setTo: 'ASP.NET, ColdFusion Server' },
+    hsts: false,
+    ieNoOpen: false,
+    xssFilter: false
+  })
+)
+
+/**
+ * Init Install Route
+ */
+app.use(BASE_API_URL + 'install', installRoute)
 
 /**
  * Init Auth Routes
@@ -41,13 +65,9 @@ app.use(BASE_API_URL + 'auth', authRoute)
  * Init Base Routes
  */
 app.use(BASE_API_URL + 'media', mediaRoutes)
-app.use(BASE_API_URL + 'users', usersRoutes)
+app.use(BASE_API_URL + 'groups', groupRoute)
+app.use(BASE_API_URL + 'users', userRoute)
 app.use(BASE_API_URL + 'settings', settingsRoutes)
-
-/**
- * Init Dynamic Routes
- */
-app.use(BASE_API_URL + ':controller', dynamicRoutes)
 
 /**
  * Default error for API controllers
@@ -59,7 +79,17 @@ app.use(BASE_API_URL, () => {
 /**
  * Use error middleware to catch errors
  */
-app.use(error)
+app.use(errorHandler)
+
+/**
+ * Special route for Nuxt stub
+ * NUXT_MODE = off
+ */
+if (!isNuxt) {
+  app.use((req, res, next) => {
+    return res.send("<h1>it's work!</h1>")
+  })
+}
 
 nuxt().then(nuxt => {
   const { host, port } = nuxt.options.server

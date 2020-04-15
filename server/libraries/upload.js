@@ -9,7 +9,7 @@ const {
 let dirname
 
 const storage = multer.diskStorage({
-  destination (req, _, callback) {
+  destination(req, _, callback) {
     const { toDir } = req.query
 
     try {
@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
       callback(new Error(e.message))
     }
   },
-  filename (_, file, callback) {
+  filename(_, file, callback) {
     const timestamp = Math.floor(new Date().getTime() / 1000)
     const prefix = uuidv4()
       .split('-')
@@ -30,6 +30,7 @@ const storage = multer.diskStorage({
 })
 
 const fileFilter = (req, file, callback) => {
+  console.log(file)
   const mimetype = [...images, ...other]
   if (mimetype.includes(file.mimetype)) {
     callback(null, true)

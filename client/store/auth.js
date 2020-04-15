@@ -1,5 +1,3 @@
-/* eslint-disable no-useless-catch */
-/* eslint-disable space-before-function-paren */
 import Cookie from 'cookie'
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
@@ -21,7 +19,8 @@ export const mutations = {
 export const actions = {
   async login({ dispatch }, formData) {
     try {
-      const { login } = this.$repository.auth
+      const $api = this.$repository
+      const { login } = $api.auth
       const {
         data: { token }
       } = await login(formData)
@@ -39,8 +38,8 @@ export const actions = {
   },
 
   setToken({ commit }, token) {
-    this.$axios.setHeader('Access-Token', token)
     commit('setToken', token)
+    this.$axios.setHeader('Access-Token', token)
     Cookies.set('access-token', token)
   },
 

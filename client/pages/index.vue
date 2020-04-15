@@ -1,61 +1,47 @@
 <template>
   <div class="container">
-    <div>
-      <h1 class="title">
-        web-page-instagram
-      </h1>
-      <h2 class="subtitle">
-        Universal Instagram CMS based on Nuxt.js
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+    <h1>Access section</h1>
+    <AppForm
+      :schema="formSchema"
+      :rules="formRule"
+      :value="formData"
+    />
   </div>
 </template>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+<script>
+import { mapState } from 'vuex'
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
+import AppForm from '~/components/form/AppForm'
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
+export default {
+  components: {
+    AppForm
+  },
 
-.links {
-  padding-top: 15px;
+  data: () => ({
+    formSchema: {},
+
+    formRule: {},
+
+    formData: {
+      image: ''
+    }
+  }),
+
+  computed: {
+    ...mapState('settings', ['schema', 'components'])
+  },
+
+  mounted() {
+    const component = this.schema
+
+    this.$set(this.formSchema, 'image', {
+      ...component,
+      component: 'FormMediaInput',
+      position: 1,
+      props: { placeholder: 'укажите путь до файла' }
+    })
+  }
 }
-</style>
+</script>

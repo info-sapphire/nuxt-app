@@ -27,6 +27,9 @@ module.exports = {
     ],
     'arrow-parens': 0,
     'no-console': 0,
-    'import/order': 0
+    'import/order': 0,
+    'space-before-function-paren': 0,
+    'no-useless-catch': 0,
+    'vue/no-v-html': 0
   }
 }

@@ -3,18 +3,21 @@ export default {
   data: () => ({
     loading: null
   }),
-  beforeCreate () {
+
+  beforeCreate() {
     this.$nextTick(() => {
       this.loading = this.$loading({ lock: true })
     })
   },
-  mounted () {
+
+  mounted() {
     setTimeout(() => {
       this.loading.close()
       this.loading = null
     }, 2000)
   },
-  render () {
+
+  render() {
     return true
   }
 }

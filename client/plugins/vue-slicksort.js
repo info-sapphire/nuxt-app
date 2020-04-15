@@ -1,4 +1,3 @@
-/* eslint-disable space-before-function-paren */
 import Vue from 'vue'
 import { ContainerMixin, ElementMixin } from 'vue-slicksort'
 

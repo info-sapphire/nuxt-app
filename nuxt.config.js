@@ -1,8 +1,7 @@
-/* eslint-disable space-before-function-paren */
 require('dotenv').config()
 
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',
   srcDir: 'client/',
   head: {
     title: process.env.npm_package_name || '',
@@ -21,32 +20,25 @@ module.exports = {
   css: ['normalize.css', { src: '@/assets/scss/main.scss', lang: 'scss' }],
   plugins: [
     '@/plugins/element-ui',
-    '@/plugins/awesome-icon',
     '@/plugins/axios',
     '@/plugins/repository',
-    '@/plugins/vue-slicksort'
+    '@/plugins/vue-slicksort',
+    '@/plugins/awesome-icon',
+    '@/plugins/nuxt-client'
   ],
   buildModules: ['@nuxtjs/eslint-module'],
   modules: [
     '@nuxtjs/axios',
     'nuxt-svg-loader',
-    'nuxt-i18n',
     ['@nuxtjs/dotenv', { path: __dirname }]
   ],
   axios: {
     baseURL: process.env.NUXT_ENV_API_URL
   },
-  i18n: {
-    // locales: ['en', 'fr', 'es'],
-    // lazy: true,
-    // langDir: 'lang/',
-    // defaultLocale: 'en',
-    // vueI18n: {
-    //   fallbackLocale: 'en'
-    // }
-  },
   build: {
     transpile: [/^element-ui/],
-    extend(config, ctx) {}
+    extend(config, ctx) {
+      config.resolve.alias['~src'] = __dirname
+    }
   }
 }

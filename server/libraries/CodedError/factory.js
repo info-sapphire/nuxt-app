@@ -11,7 +11,7 @@ class CodedError extends Error {
    * @param {number} params.status - HTTP status override
    * @param {string} params.message - Error message override
    */
-  constructor (code = 0, params = {}) {
+  constructor(code = 0, params = {}) {
     const props = { ...codes.get(code), ...params, name: NAME }
 
     super(props.message)

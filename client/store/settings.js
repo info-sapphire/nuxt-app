@@ -1,4 +1,3 @@
-/* eslint-disable space-before-function-paren */
 export const state = () => ({
   settings: null,
   schema: null,
@@ -12,23 +11,10 @@ export const mutations = {
 }
 
 export const actions = {
-  async list({ state, commit }) {
-    if (state.settings !== null) {
-      return state.settings
-    }
-
-    try {
-      const { list } = this.$repository.settings
-      const { data } = await list()
-
-      commit('SET_SETTINGS', data)
-
-      return data
-    } catch (err) {
-      console.error(err)
-    }
-  },
-
+  /**
+   * получение списка доступных компонентов config/components
+   * получение default схемы компонента config/schema
+   */
   async schema({ state, commit }) {
     if (state.schema !== null) {
       return state.schema
@@ -43,7 +29,24 @@ export const actions = {
       commit('SET_SCHEMA', component)
       commit('SET_COMPONENTS', components)
     } catch (err) {
-      console.error(err)
+      throw err
+    }
+  },
+
+  async list({ state, commit }) {
+    if (state.settings !== null) {
+      return state.settings
+    }
+
+    try {
+      const { list } = this.$repository.settings
+      const { data } = await list()
+
+      commit('SET_SETTINGS', data)
+
+      return data
+    } catch (err) {
+      throw err
     }
   },
 
@@ -54,7 +57,7 @@ export const actions = {
 
       commit('SET_SETTINGS', data)
     } catch (err) {
-      console.error(err)
+      throw err
     }
   },
 
@@ -65,7 +68,7 @@ export const actions = {
 
       commit('SET_SETTINGS', data)
     } catch (err) {
-      console.error(err)
+      throw err
     }
   }
 }

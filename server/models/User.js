@@ -3,7 +3,8 @@ const { Schema, model } = require('mongoose')
 const schema = new Schema({
   email: { type: String, required: true, unique: true },
   passwd: { type: String, required: true },
-  group: { type: Schema.ObjectId, ref: 'Group' }
+  group: { type: Schema.ObjectId, ref: 'Group' },
+  created: { type: Date, default: Date.now }
 })
 
 module.exports = model('User', schema)

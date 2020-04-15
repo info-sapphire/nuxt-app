@@ -23,9 +23,8 @@ import {
   TableColumn,
   Tree,
   Popover,
+  Alert,
   Message
-  // Collapse,
-  // CollapseItem
 } from 'element-ui'
 import lang from 'element-ui/lib/locale/lang/ru-RU'
 import locale from 'element-ui/lib/locale'
@@ -54,8 +53,7 @@ Vue.use(Table)
 Vue.use(TableColumn)
 Vue.use(Tree)
 Vue.use(Popover)
-// Vue.use(Collapse)
-// Vue.use(CollapseItem)
+Vue.use(Alert)
 
 Vue.use(Loading.directive)
 

@@ -21,6 +21,9 @@ import aITimes from '@/assets/awesome-icons/light/aITimes'
 import aIUsers from '@/assets/awesome-icons/light/aIUsers'
 import aIUsersCrown from '@/assets/awesome-icons/light/aIUsersCrown'
 import aIPollPeople from '@/assets/awesome-icons/light/aIPollPeople'
+import aICheck from '@/assets/awesome-icons/light/aICheck'
+import aIMinus from '@/assets/awesome-icons/light/aIMinus'
+import aIUserEdit from '@/assets/awesome-icons/light/aIUserEdit'
 
 const icons = [
   aILanguage,
@@ -35,7 +38,10 @@ const icons = [
   aITimes,
   aIUsers,
   aIUsersCrown,
-  aIPollPeople
+  aIPollPeople,
+  aICheck,
+  aIMinus,
+  aIUserEdit
 ]
 
 Vue.component('AwesomeIcon', {

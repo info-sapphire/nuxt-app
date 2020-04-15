@@ -3,10 +3,18 @@ const path = require('path')
 const CodedError = require('../libraries/CodedError')
 const { components, schema } = require('../config')
 /** settings.json */
-const dir = path.join(__dirname, '..', 'config', 'settings.json')
+const dir = path.join(__dirname, '..', '..', '.cache', 'settings.json')
 const settings = fs.existsSync(dir)
   ? JSON.parse(fs.readFileSync(dir, 'utf8'))
   : {}
+
+module.exports.schema = (req, res, next) => {
+  return next(
+    new CodedError('SUCCESS', {
+      data: { components, schema }
+    })
+  )
+}
 
 module.exports.options = (req, res, next) => {
   const options = {}
@@ -20,14 +28,6 @@ module.exports.options = (req, res, next) => {
   return next(
     new CodedError('SUCCESS', {
       data: options
-    })
-  )
-}
-
-module.exports.schema = (req, res, next) => {
-  return next(
-    new CodedError('SUCCESS', {
-      data: { components, schema }
     })
   )
 }

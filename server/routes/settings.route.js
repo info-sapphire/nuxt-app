@@ -9,7 +9,7 @@ const {
 } = require('../controllers/settings.controller')
 
 router.get('/', options)
-router.get('/schema', verifyAccessToken, schema)
+router.get('/schema', schema)
 router.get('/list', verifyAccessToken, list)
 router.put('/update', verifyAccessToken, update)
 router.post('/create', verifyAccessToken, create)
