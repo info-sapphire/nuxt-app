@@ -4,7 +4,11 @@
   "description": "Admin UI and API for SmartMedia projects",
   "author": "Sapphire",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "prettier": "prettier --write '{client,server}/**/*.{js,vue,scss,json}' '!client/assets/**/*.js'"
+  },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "prettier": "^2.0.5"
+  }
 }
