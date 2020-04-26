@@ -1,0 +1,10 @@
+{
+  "name": "nuxt-app",
+  "version": "0.2.0",
+  "description": "Admin UI and API for smartmedia projects",
+  "author": "Sapphire",
+  "private": true,
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {}
+}
